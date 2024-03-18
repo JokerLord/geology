@@ -85,12 +85,17 @@ class ResUNet(nn.Module):
         self.encoder3 = EncoderBlock(filters * 2, filters * 4, BN) # (N, 64, x.H / 8, x.W / 8)
         self.encoder4 = EncoderBlock(filters * 4, filters * 8, BN) # (N, 128, x.H / 16, x.W / 16)
 
+        """ Bridge """
+        self.bridge = ConvRes(filters * 8, filters * 16, BN) # (N, 256, x.H / 16, x.W / 16)
 
     def forward(self, inputs):
         s1, p1 = self.encoder1(inputs)
         s2, p2 = self.encoder2(p1)
         s3, p3 = self.encoder3(p2)
         s4, p4 = self.encoder4(p3)
+
+        b = self.bridge(p4)
+        print(b.shape)
 
         return p4
 
