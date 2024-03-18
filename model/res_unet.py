@@ -80,10 +80,19 @@ class ResUNet(nn.Module):
         super().__init__()
 
         """ Encoder """
-        self.en1 = EncoderBlock(n_channels, filters, BN)
+        self.encoder1 = EncoderBlock(n_channels, filters, BN) # (N, 16, x.H / 2, x.W / 2)
+        self.encoder2 = EncoderBlock(filters, filters * 2, BN) # (N, 32, x.H / 4, x.W / 4)
+        self.encoder3 = EncoderBlock(filters * 2, filters * 4, BN) # (N, 64, x.H / 8, x.W / 8)
+        self.encoder4 = EncoderBlock(filters * 4, filters * 8, BN) # (N, 128, x.H / 16, x.W / 16)
+
 
     def forward(self, inputs):
-        x, p = self.en1(inputs)
+        s1, p1 = self.encoder1(inputs)
+        s2, p2 = self.encoder2(p1)
+        s3, p3 = self.encoder3(p2)
+        s4, p4 = self.encoder4(p3)
+
+        return p4
 
 
 if __name__ == "__main__":
