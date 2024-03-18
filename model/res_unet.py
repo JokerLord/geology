@@ -10,9 +10,9 @@ class ConvRes(nn.Module):
         self,
         in_channels: int,
         out_channels: int,
-        kernel_size: Union[int, tuple] = 3,
-        padding: Union[int, tuple, str] = 1,
         BN: bool = True,
+        kernel_size: Union[int, tuple] = 3,
+        padding: Union[int, tuple, str] = "same",
     ):
         super().__init__()
 
@@ -30,13 +30,13 @@ class ConvRes(nn.Module):
         self.bn2 = nn.BatchNorm2d(out_channels)
 
         """ Initialization """
-        nn.init.xavier_normal_(self.conv1)
-        nn.init.xavier_normal_(self.conv2)
+        nn.init.xavier_normal_(self.conv1.weight)
+        nn.init.xavier_normal_(self.conv2.weight)
 
     def forward(self, inputs):
         s = self.shortcut_bn(self.shortcut(inputs))
 
-        x = F.relu(self.conv1(x))
+        x = F.relu(self.conv1(inputs))
         if self.BN:
             x = self.bn1(x)
         x = F.relu(self.conv2(x))
