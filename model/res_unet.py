@@ -91,7 +91,13 @@ class ResUNet(nn.Module):
         self.bridge = ConvRes(filters * 8, filters * 16, BN) # (N, 256, x.H / 16, x.W / 16)
 
         """ Decoder """
-        self.decoder1 = DecoderBlock(filters * 16, filters * 8, BN) # (N, 128, x.H / 16, x.W / 16)
+        self.decoder1 = DecoderBlock(filters * 16, filters * 8, BN) # (N, 128, x.H / 8, x.W / 8)
+        self.decoder2 = DecoderBlock(filters * 8, filters * 4, BN) # (N, 64, x.H / 4, x.W / 4)
+        self.decoder3 = DecoderBlock(filters * 4, filters * 2, BN) # (N, 32, x.H / 2, x.W / 2)
+        self.decoder4 = DecoderBlock(filters * 2, filters, BN) # (N, 16, x.H, x.W)
+
+        """ Classifier """
+        self.outputs = nn.Conv2d(filters, n_classes, kernel_size=1)
 
     def forward(self, inputs):
         s1, p1 = self.encoder1(inputs)
@@ -99,11 +105,16 @@ class ResUNet(nn.Module):
         s3, p3 = self.encoder3(p2)
         s4, p4 = self.encoder4(p3)
 
-        b = self.bridge(p4)
+        x = self.bridge(p4)
 
-        self.decoder1(b, s4)
+        x = self.decoder1(x, s4)
+        x = self.decoder2(x, s3)
+        x = self.decoder3(x, s2)
+        x = self.decoder4(x, s1)
+        
+        x = F.softmax(self.outputs(x), dim=1)
 
-        return p4
+        return x
 
 
 if __name__ == "__main__":
