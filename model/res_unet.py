@@ -59,18 +59,20 @@ class EncoderBlock(nn.Module):
         return x, p
 
 
-# class DecoderBlock(nn.Module):
-#     def __init__(self, in_channels: int, out_channels: int, BN: bool = True):
-#         super().__init__()
+class DecoderBlock(nn.Module):
+    def __init__(self, in_channels: int, out_channels: int, BN: bool = True):
+        super().__init__()
 
-#         self.upsample = nn.ConvTranspose2d(
-#             in_channels, out_channels, kernel_size=2, stride=2, padding="same"
-#         )
-#         self.conv = ConvRes(in_channels, out_channels, BN)
+        self.upsample = nn.ConvTranspose2d(
+            in_channels, out_channels, kernel_size=2, stride=2, padding=0
+        )
+        self.conv = ConvRes(out_channels * 2, out_channels, BN)
 
-#     def forward(self, inputs, shortcut):
-#         x = self.upsample(inputs)
-#         print(x.shape, shortcut.shape)
+    def forward(self, inputs, shortcut):
+        x = self.upsample(inputs)
+        x = torch.cat([x, shortcut], axis=1)
+        x = self.conv(x)
+        return x
 
 
 class ResUNet(nn.Module):
@@ -88,6 +90,9 @@ class ResUNet(nn.Module):
         """ Bridge """
         self.bridge = ConvRes(filters * 8, filters * 16, BN) # (N, 256, x.H / 16, x.W / 16)
 
+        """ Decoder """
+        self.decoder1 = DecoderBlock(filters * 16, filters * 8, BN) # (N, 128, x.H / 16, x.W / 16)
+
     def forward(self, inputs):
         s1, p1 = self.encoder1(inputs)
         s2, p2 = self.encoder2(p1)
@@ -95,7 +100,8 @@ class ResUNet(nn.Module):
         s4, p4 = self.encoder4(p3)
 
         b = self.bridge(p4)
-        print(b.shape)
+
+        self.decoder1(b, s4)
 
         return p4
 
