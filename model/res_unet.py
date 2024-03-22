@@ -82,22 +82,38 @@ class ResUNet(nn.Module):
         super().__init__()
 
         """ Encoder """
-        self.encoder1 = EncoderBlock(n_channels, filters, BN) # (N, 16, x.H / 2, x.W / 2)
-        self.encoder2 = EncoderBlock(filters, filters * 2, BN) # (N, 32, x.H / 4, x.W / 4)
-        self.encoder3 = EncoderBlock(filters * 2, filters * 4, BN) # (N, 64, x.H / 8, x.W / 8)
-        self.encoder4 = EncoderBlock(filters * 4, filters * 8, BN) # (N, 128, x.H / 16, x.W / 16)
+        self.encoder1 = EncoderBlock(
+            n_channels, filters, BN
+        )  # (N, 16, x.H / 2, x.W / 2)
+        self.encoder2 = EncoderBlock(
+            filters, filters * 2, BN
+        )  # (N, 32, x.H / 4, x.W / 4)
+        self.encoder3 = EncoderBlock(
+            filters * 2, filters * 4, BN
+        )  # (N, 64, x.H / 8, x.W / 8)
+        self.encoder4 = EncoderBlock(
+            filters * 4, filters * 8, BN
+        )  # (N, 128, x.H / 16, x.W / 16)
 
         """ Bridge """
-        self.bridge = ConvRes(filters * 8, filters * 16, BN) # (N, 256, x.H / 16, x.W / 16)
+        self.bridge = ConvRes(
+            filters * 8, filters * 16, BN
+        )  # (N, 256, x.H / 16, x.W / 16)
 
         """ Decoder """
-        self.decoder1 = DecoderBlock(filters * 16, filters * 8, BN) # (N, 128, x.H / 8, x.W / 8)
-        self.decoder2 = DecoderBlock(filters * 8, filters * 4, BN) # (N, 64, x.H / 4, x.W / 4)
-        self.decoder3 = DecoderBlock(filters * 4, filters * 2, BN) # (N, 32, x.H / 2, x.W / 2)
-        self.decoder4 = DecoderBlock(filters * 2, filters, BN) # (N, 16, x.H, x.W)
+        self.decoder1 = DecoderBlock(
+            filters * 16, filters * 8, BN
+        )  # (N, 128, x.H / 8, x.W / 8)
+        self.decoder2 = DecoderBlock(
+            filters * 8, filters * 4, BN
+        )  # (N, 64, x.H / 4, x.W / 4)
+        self.decoder3 = DecoderBlock(
+            filters * 4, filters * 2, BN
+        )  # (N, 32, x.H / 2, x.W / 2)
+        self.decoder4 = DecoderBlock(filters * 2, filters, BN)  # (N, 16, x.H, x.W)
 
         """ Classifier """
-        self.outputs = nn.Conv2d(filters, n_classes, kernel_size=1)
+        self.outputs = nn.Conv2d(filters, n_classes, kernel_size=1) # (N, 16, x.H, x.W)
 
     def forward(self, inputs):
         s1, p1 = self.encoder1(inputs)
@@ -111,13 +127,7 @@ class ResUNet(nn.Module):
         x = self.decoder2(x, s3)
         x = self.decoder3(x, s2)
         x = self.decoder4(x, s1)
-        
+
         x = F.softmax(self.outputs(x), dim=1)
 
         return x
-
-
-if __name__ == "__main__":
-    inputs = torch.randn([4, 3, 256, 256])
-    model = ResUNet(10)
-    model(inputs)
