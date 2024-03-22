@@ -7,13 +7,17 @@ from typing import Union
 
 class ConvRes(nn.Module):
     def __init__(
-        self,
-        in_channels: int,
-        out_channels: int,
-        BN: bool = True,
-        kernel_size: Union[int, tuple] = 3,
-        padding: Union[int, tuple, str] = "same",
+        self, in_channels, out_channels, BN=True, kernel_size=3, padding="same"
     ):
+        """
+        Arguments:
+            in_channels (int): Number of channels in the input tensor.
+            out_channels (int): Number of channels produced by the convolution
+            BN (bool, optional): If True, enables batch normalization. Default: True.
+            kernel_size (int or tuple, optional): Size of the convolving kernel. Default: 3.
+            padding (int, tuple or str, optional): Padding added to all four sides of the input. Default: "same".
+        """
+
         super().__init__()
 
         """ Shortcut Connection """
@@ -47,7 +51,14 @@ class ConvRes(nn.Module):
 
 
 class EncoderBlock(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, BN: bool = True):
+    def __init__(self, in_channels, out_channels, BN=True):
+        """
+        Arguments:
+            in_channels (int): Number of channels in the input tensor.
+            out_channels (int): Number of channels produced by the encoding block.
+            BN (bool, optional): If True, enables batch normalization. Default: True.
+        """
+
         super().__init__()
 
         self.conv_res = ConvRes(in_channels, out_channels, BN)
@@ -60,7 +71,14 @@ class EncoderBlock(nn.Module):
 
 
 class DecoderBlock(nn.Module):
-    def __init__(self, in_channels: int, out_channels: int, BN: bool = True):
+    def __init__(self, in_channels, out_channels, BN=True):
+        """
+        Arguments:
+            in_channels (int): Number of channels in the input tensor.
+            out_channels (int): Number of channels produced by the decoding block.
+            BN (bool, optional): If True, enables batch normalization. Default: True.
+        """
+
         super().__init__()
 
         self.upsample = nn.ConvTranspose2d(
@@ -76,9 +94,15 @@ class DecoderBlock(nn.Module):
 
 
 class ResUNet(nn.Module):
-    def __init__(
-        self, n_classes: int, n_channels: int = 3, filters: int = 16, BN: bool = True
-    ):
+    def __init__(self, n_classes, n_channels=3, filters=16, BN=True):
+        """
+        Arguments:
+            n_classes (int): Number of output classes.
+            n_channels (int, optional): Number of channels in input images. Default: 3.
+            filters (int, optional): Number of filters in the first ConvRes block. Default: 16.
+            BN (bool, optional): If True, enables batch normalization. Default: True.
+        """
+
         super().__init__()
 
         """ Encoder """
@@ -113,7 +137,7 @@ class ResUNet(nn.Module):
         self.decoder4 = DecoderBlock(filters * 2, filters, BN)  # (N, 16, x.H, x.W)
 
         """ Classifier """
-        self.outputs = nn.Conv2d(filters, n_classes, kernel_size=1) # (N, 16, x.H, x.W)
+        self.outputs = nn.Conv2d(filters, n_classes, kernel_size=1)  # (N, 16, x.H, x.W)
 
     def forward(self, inputs):
         s1, p1 = self.encoder1(inputs)
