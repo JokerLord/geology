@@ -1,5 +1,6 @@
 import numpy as np
 import math
+import torch
 
 
 def _get_patch_coords(img_shape, patch_size, conv_offset, overlap):
@@ -36,11 +37,11 @@ def split_into_patches(image, patch_size, conv_offset, overlap):
         image (np.ndarray): Source image.
         patch_size (int): Patch size in pixels.
         conv_offset (int): Convolutional offset in pixels.
-        overlap (int or float): either float in [0, 1] (fraction of patch size)
+        overlap (int or float): Either float in [0, 1] (fraction of patch size)
             or int in pixels
 
     Returns:
-        patchs (list[np.ndarray]): list of extracted patches.
+        patchs (list[np.ndarray]): List of extracted patches.
     """
 
     if isinstance(overlap, float):
@@ -52,3 +53,35 @@ def split_into_patches(image, patch_size, conv_offset, overlap):
         patch = image[..., y : y + patch_size, x : x + patch_size]
         patches.append(patch)
     return patches
+
+
+def combine_from_patches(patches, patch_size, conv_offset, overlap, src_shape):
+    """
+    Combines patches back into the image.
+
+    Arguments:
+        patches (list[np.ndarray]): List of patches.
+        patch_size (int): Patch size in pixels.
+        conv_offset (int): Convolutional offset in pixels.
+        overlap (int or float): Either float in [0, 1] (fraction of patch size)
+            or int in pixels
+        src_shop (tuple(N, 3, H, W)): Source image shape.
+
+    Returns:
+        image (np.ndarray): Combined image.
+    """
+
+    if isinstance(overlap, float):
+        overlap = int(patch_size * overlap)
+    image = torch.zeros(src_shape, dtype=float)
+    density = torch.zeros(src_shape, dtype=float)
+    coords = _get_patch_coords(src_shape, patch_size, conv_offset, overlap)
+    for i, coord in enumerate(coords):
+        y, x = coord
+        y0, y1 = y, y + patch_size
+        x0, x1 = x, x + patch_size
+        image[..., y0: y1, x0: x1] += patches[i]
+        density[..., y0: y1, x0: x1] += 1
+    density[density == 0] = 1
+    image /= density
+    return image
