@@ -26,3 +26,7 @@ TRAIN_TRANSFORM = A.Compose([
     A.Normalize(),
     ToTensorV2(transpose_mask=True)
 ])
+
+PATCH_SIZE = 384
+PATCH_OVERLAP = 0.5
+CONV_OFFSET = 8
