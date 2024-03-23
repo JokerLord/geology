@@ -78,9 +78,9 @@ def combine_from_patches(patches, patch_size, conv_offset, overlap, src_shape):
     coords = _get_patch_coords(src_shape, patch_size, conv_offset, overlap)
     for i, coord in enumerate(coords):
         y, x = coord
-        y0, y1 = y, y + patch_size
-        x0, x1 = x, x + patch_size
-        image[..., y0: y1, x0: x1] += patches[i]
+        y0, y1 = y + conv_offset, y + patch_size - conv_offset
+        x0, x1 = x + conv_offset, x + patch_size - conv_offset
+        image[..., y0: y1, x0: x1] += patches[i][..., conv_offset: patch_size - conv_offset, conv_offset: patch_size - conv_offset]
         density[..., y0: y1, x0: x1] += 1
     density[density == 0] = 1
     image /= density
