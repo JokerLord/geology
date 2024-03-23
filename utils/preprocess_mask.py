@@ -8,7 +8,7 @@ def one_hot(mask, n_classes):
     Arguments:
         mask (np.ndarray): Input tensor with size (x.H, x.W).
         n_classes (int): Total number of classes.
-        
+
     Return:
         new_mask (np.ndarray): Output tensor with size (n_classes, x.H, x.W)
     """

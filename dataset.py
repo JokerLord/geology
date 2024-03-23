@@ -45,6 +45,6 @@ class LumenStoneDataset(Dataset):
             image = transformed["image"]
             mask = transformed["mask"]
         return image, mask
-    
+
     def __len__(self):
         return len(self._items)
