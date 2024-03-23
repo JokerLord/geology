@@ -16,4 +16,5 @@ def one_hot(mask, n_classes):
     new_mask = []
     for i in range(1, n_classes + 1):
         new_mask.append(mask == i)
-    return np.asarray(new_mask, dtype=float)
+    new_mask = np.asarray(new_mask, dtype=float)
+    return new_mask.transpose([1, 2, 0])

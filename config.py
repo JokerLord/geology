@@ -1,3 +1,6 @@
+import albumentations as A
+from albumentations.pytorch import ToTensorV2
+
 from pathlib import Path
 
 
@@ -18,3 +21,8 @@ CLASS_NAMES = [
     "Tnt/Ttr",
     "Kvl",
 ]
+
+TRAIN_TRANSFORM = A.Compose([
+    A.Normalize(),
+    ToTensorV2(transpose_mask=True)
+])

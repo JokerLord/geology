@@ -36,7 +36,7 @@ class LumenStoneDataset(Dataset):
 
     def __getitem__(self, idx):
         img_path, mask_path = self._items[idx]
-        image = np.asarray(Image.open(img_path), dtype=float)
+        image = np.asarray(Image.open(img_path).convert("RGB"), dtype=float)
         mask = np.asarray(Image.open(mask_path).convert("L"), dtype=float)
 
         mask = one_hot(mask, len(CLASS_NAMES))
