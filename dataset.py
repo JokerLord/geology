@@ -1,20 +1,17 @@
 import numpy as np
 
-import torch
-import torch.nn.functional as F
 from torch.utils.data import Dataset
-from torchvision import transforms
 
 from pathlib import Path
 from PIL import Image
+from typing import Callable, Optional
 
 from config import CLASS_NAMES
-
 from utils.preprocess_mask import one_hot
 
 
 class LumenStoneDataset(Dataset):
-    def __init__(self, root_dir, train, transform=None):
+    def __init__(self, root_dir: str, train: bool, transform: Optional[Callable] = None):
         """
         Arguments:
             root_dir (string): Directory with all the images.
