@@ -32,6 +32,8 @@ VAL_TRANSFORM = A.Compose([
     ToTensorV2(transpose_mask=True)
 ])
 
+N_FILTERS = 16
+
 PATCH_SIZE = 384
 PATCH_OVERLAP = 0.5
 CONV_OFFSET = 8
