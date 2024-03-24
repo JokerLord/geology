@@ -4,17 +4,22 @@ from torch.utils.data import Dataset
 
 from pathlib import Path
 from PIL import Image
-from typing import Callable, Optional
+from typing import Callable, Optional, Union
 
 from config import CLASS_NAMES
 from utils.preprocess_mask import one_hot
 
 
 class LumenStoneDataset(Dataset):
-    def __init__(self, root_dir: str, train: bool, transform: Optional[Callable] = None):
+    def __init__(
+        self,
+        root_dir: Union[str, Path],
+        train: bool,
+        transform: Optional[Callable] = None,
+    ):
         """
         Arguments:
-            root_dir (string): Directory with all the images.
+            root_dir (string or Path): Directory with all the images.
             train (bool): If True, train images will be taken, else test ones.
             transform (callable, optional): Optional transform to be applied
                 on a sample
