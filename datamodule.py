@@ -1,9 +1,10 @@
 import pytorch_lightning as pl
 
-from pytorch_lightning.utilities.types import TRAIN_DATALOADERS
 from torch.utils.data import Subset, DataLoader
 
 from sklearn.model_selection import train_test_split
+from pathlib import Path
+from typing import Union, Optional, Callable
 
 from config import BATCH_SIZE, TRAIN_TRANSFORM, VAL_TRANSFORM, SPLIT_RATIO
 from dataset import LumenStoneDataset
@@ -12,15 +13,15 @@ from dataset import LumenStoneDataset
 class LumenStoneDataModule(pl.LightningDataModule):
     def __init__(
         self,
-        root_dir,
-        batch_size=BATCH_SIZE,
-        split_ratio=SPLIT_RATIO,
-        train_transform=TRAIN_TRANSFORM,
-        val_transform=VAL_TRANSFORM,
+        root_dir: Union[str, Path],
+        batch_size: Optional[int] = BATCH_SIZE,
+        split_ratio: Optional[float] = SPLIT_RATIO,
+        train_transform: Optional[Callable] = TRAIN_TRANSFORM,
+        val_transform: Optional[Callable] = VAL_TRANSFORM,
     ):
         """
         Arguments:
-            root_dir (string): Directory with all the images.
+            root_dir (string or Path): Directory with all the images.
             batch_size (int, optional): Batch size. Default: 16.
             split_ration (float, optional): Train/validation split ration. Default: 0.85.
             train_transform (callable, optional): Optional transform to be applied
@@ -34,7 +35,7 @@ class LumenStoneDataModule(pl.LightningDataModule):
         self.train_transform = train_transform
         self.val_transform = val_transform
 
-    def setup(self, stage):
+    def setup(self, stage: str):
 
         print("!!!!!!SETUP!!!!!!")
 
