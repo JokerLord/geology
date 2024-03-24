@@ -14,18 +14,22 @@ from utils.preprocess_mask import one_hot
 
 
 class LumenStoneDataset(Dataset):
-    def __init__(self, root_dir, mode, transform=None):
+    def __init__(self, root_dir, train, transform=None):
         """
         Arguments:
             root_dir (string): Directory with all the images.
-            mode ("train" or "test"): If "train", train images will be taken,
-                else "test" ones.
+            train (bool): If True, train images will be taken, else test ones.
             transform (callable, optional): Optional transform to be applied
                 on a sample
         """
 
         self._items = []
         self._transform = transform
+
+        if train:
+            mode = "train"
+        else:
+            mode = "test"
 
         img_dir = Path(root_dir) / "imgs" / mode
         mask_dir = Path(root_dir) / "masks" / mode
