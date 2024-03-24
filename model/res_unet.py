@@ -160,6 +160,4 @@ class ResUNet(nn.Module):
         x = self.decoder3(x, s2)
         x = self.decoder4(x, s1)
 
-        x = F.softmax(self.outputs(x), dim=1)
-
         return x
