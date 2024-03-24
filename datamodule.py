@@ -28,6 +28,8 @@ class LumenStoneDataModule(pl.LightningDataModule):
             val_transform (callable, optional): Optinal transofrm
         """
 
+        super().__init__()
+
         self.root_dir = root_dir
         self.batch_size = batch_size
         self.split_ratio = split_ratio
