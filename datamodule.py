@@ -6,7 +6,6 @@ from sklearn.model_selection import train_test_split
 from pathlib import Path
 from typing import Union, Optional, Callable
 
-from config import BATCH_SIZE, TRAIN_TRANSFORM, VAL_TRANSFORM, SPLIT_RATIO
 from dataset import LumenStoneDataset
 
 
@@ -14,10 +13,10 @@ class LumenStoneDataModule(pl.LightningDataModule):
     def __init__(
         self,
         root_dir: Union[str, Path],
-        batch_size: Optional[int] = BATCH_SIZE,
-        split_ratio: Optional[float] = SPLIT_RATIO,
-        train_transform: Optional[Callable] = TRAIN_TRANSFORM,
-        val_transform: Optional[Callable] = VAL_TRANSFORM,
+        batch_size: Optional[int],
+        split_ratio: Optional[float],
+        train_transform: Optional[Callable],
+        val_transform: Optional[Callable],
     ):
         """
         Arguments:
@@ -42,10 +41,10 @@ class LumenStoneDataModule(pl.LightningDataModule):
         """ Assign train/val datasets for use in dataloaders """
         if stage == "fit":
             lumenstone_train = LumenStoneDataset(
-                root_dir=self.root_dir, train=True, transform=TRAIN_TRANSFORM
+                root_dir=self.root_dir, train=True, transform=self.train_transform
             )
             lumenstone_val = LumenStoneDataset(
-                root_dir=self.root_dir, train=True, transform=VAL_TRANSFORM
+                root_dir=self.root_dir, train=True, transform=self.val_transform
             )
 
             indices = list(range(len(lumenstone_train))) 
@@ -56,12 +55,12 @@ class LumenStoneDataModule(pl.LightningDataModule):
         """ Assign test dataset for use in dataloader(s) """
         if stage == "test":
             self.lumenstone_test = LumenStoneDataset(
-                self.root_dir, train=False, transform=VAL_TRANSFORM
+                self.root_dir, train=False, transform=self.val_transform
             )
 
         if stage == "predict":
             self.lumenstone_predict = LumenStoneDataset(
-                self.root_dir, train=False, transform=VAL_TRANSFORM
+                self.root_dir, train=False, transform=self.val_transform
             )
 
     def train_dataloader(self):
