@@ -27,6 +27,14 @@ TRAIN_TRANSFORM = A.Compose([
     ToTensorV2(transpose_mask=True)
 ])
 
+VAL_TRANSFORM = A.Compose([
+    A.Normalize(),
+    ToTensorV2(transpose_mask=True)
+])
+
 PATCH_SIZE = 384
 PATCH_OVERLAP = 0.5
 CONV_OFFSET = 8
+
+BATCH_SIZE = 16
+SPLIT_RATIO = 0.85
