@@ -2,17 +2,20 @@ import numpy as np
 import math
 import torch
 
+from typing import Union
+from torch import Tensor
+
 
 def _get_patch_coords(img_shape, patch_size, conv_offset, overlap):
     """
     Arguments:
-        img_shape (tuple): Image shape.
+        img_shape (tuple[int, int, int, int]): Image shape.
         patch_size (int): Patch size in pixels.
         conv_offset (int): Convolutional offset in pixels.
         overlap (int): Overlap number in pixels.
 
     Returns:
-        coords (list[(tuple)]): List of patch coordinates.
+        coords (list[(int, int)]): List of patch coordinates.
     """
 
     H, W = img_shape[-2:]
@@ -29,7 +32,9 @@ def _get_patch_coords(img_shape, patch_size, conv_offset, overlap):
     return coords
 
 
-def split_into_patches(image, patch_size, conv_offset, overlap):
+def split_into_patches(
+    image: Tensor, patch_size: int, conv_offset: int, overlap: Union[int, float]
+) -> list[Tensor]:
     """
     Splits image into patches.
 
@@ -55,7 +60,13 @@ def split_into_patches(image, patch_size, conv_offset, overlap):
     return patches
 
 
-def combine_from_patches(patches, patch_size, conv_offset, overlap, src_shape):
+def combine_from_patches(
+    patches: list[Tensor],
+    patch_size: int,
+    conv_offset: int,
+    overlap: int,
+    src_shape: tuple[int, int, int, int],
+) -> Tensor:
     """
     Combines patches back into the image.
 
@@ -65,23 +76,27 @@ def combine_from_patches(patches, patch_size, conv_offset, overlap, src_shape):
         conv_offset (int): Convolutional offset in pixels.
         overlap (int or float): Either float in [0, 1] (fraction of patch size)
             or int in pixels
-        src_shop (tuple(N, 3, H, W)): Source image shape.
+        src_shape (tuple[N, 3, H, W]): Source image shape.
 
     Returns:
-        image (np.ndarray): Combined image.
+        image (Tensor): Combined image.
     """
 
     if isinstance(overlap, float):
         overlap = int(patch_size * overlap)
-    image = torch.zeros(src_shape, dtype=float)
-    density = torch.zeros(src_shape, dtype=float)
+    image = torch.zeros(*src_shape, dtype=torch.float)
+    density = torch.zeros(*src_shape, dtype=torch.float)
     coords = _get_patch_coords(src_shape, patch_size, conv_offset, overlap)
     for i, coord in enumerate(coords):
         y, x = coord
         y0, y1 = y + conv_offset, y + patch_size - conv_offset
         x0, x1 = x + conv_offset, x + patch_size - conv_offset
-        image[..., y0: y1, x0: x1] += patches[i][..., conv_offset: patch_size - conv_offset, conv_offset: patch_size - conv_offset]
-        density[..., y0: y1, x0: x1] += 1
+        image[..., y0:y1, x0:x1] += patches[i][
+            ...,
+            conv_offset : patch_size - conv_offset,
+            conv_offset : patch_size - conv_offset,
+        ]
+        density[..., y0:y1, x0:x1] += 1
     density[density == 0] = 1
     image /= density
     return image
