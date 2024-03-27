@@ -64,7 +64,7 @@ def combine_from_patches(
     patches: list[Tensor],
     patch_size: int,
     conv_offset: int,
-    overlap: int,
+    overlap: Union[int, float],
     src_shape: tuple[int, int, int, int],
 ) -> Tensor:
     """
