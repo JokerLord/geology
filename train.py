@@ -1,4 +1,5 @@
 import numpy as np
+import argparse
 
 import torch
 import torch.nn.functional as F
@@ -13,8 +14,8 @@ from config import *
 from utils.patches import split_into_patches, combine_from_patches
 
 
-if __name__ == "__main__":
-    trainer = pl.Trainer(max_epochs=1)
+def train(gpu_index: int):
+    trainer = pl.Trainer(max_epochs=1, accelerator="gpu", devices=[gpu_index])
     datamodule = LumenStoneDataModule(
         root_dir=LUMENSTONE_PATH,
         batch_size=BATCH_SIZE,
@@ -34,3 +35,10 @@ if __name__ == "__main__":
     )
 
     trainer.fit(model=model, datamodule=datamodule)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("gpu_index", type=int, help="GPU index")
+
+    args = parser.parse_args()
+    train(args.gpu_index)    
