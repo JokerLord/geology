@@ -39,7 +39,7 @@ def split_into_patches(
     Splits image into patches.
 
     Arguments:
-        image (np.ndarray): Source image.
+        image (Tensor): Source image.
         patch_size (int): Patch size in pixels.
         conv_offset (int): Convolutional offset in pixels.
         overlap (int or float): Either float in [0, 1] (fraction of patch size)
