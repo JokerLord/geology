@@ -23,12 +23,10 @@ CLASS_NAMES = [
 ]
 
 TRAIN_TRANSFORM = A.Compose([
-    A.Normalize(),
     ToTensorV2(transpose_mask=True)
 ])
 
 VAL_TRANSFORM = A.Compose([
-    A.Normalize(),
     ToTensorV2(transpose_mask=True)
 ])
 
