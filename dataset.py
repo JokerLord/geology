@@ -42,14 +42,14 @@ class LumenStoneDataset(Dataset):
 
     def __getitem__(self, idx):
         img_path, mask_path = self._items[idx]
-        image = np.asarray(Image.open(img_path).convert("RGB"), dtype=float)
-        mask = np.asarray(Image.open(mask_path).convert("L"), dtype=float)
+        image = np.array(Image.open(img_path).convert("RGB"), dtype=np.uint8) 
+        mask = np.array(Image.open(mask_path).convert("L"), dtype=np.uint8) 
 
         mask = one_hot(mask, len(CLASS_NAMES))
         if self._transform:
             transformed = self._transform(image=image, mask=mask)
-            image = transformed["image"]
-            mask = transformed["mask"]
+            image = transformed["image"] # (3, H, W), dtype=torch.uint8
+            mask = transformed["mask"] # (n_classes, H, W), dtype=torch.uint8
         return image, mask
 
     def __len__(self):
