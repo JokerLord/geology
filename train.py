@@ -29,7 +29,7 @@ def train(gpu_index: int):
         n_channels=3,
         n_filters=N_FILTERS,
         BN=True,
-        loss_func=torch.nn.CrossEntropyLoss,
+        loss_func=torch.nn.CrossEntropyLoss(),
         optimizer=torch.optim.Adam,
         lr=LR,
     )
