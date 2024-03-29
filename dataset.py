@@ -6,9 +6,6 @@ from pathlib import Path
 from PIL import Image
 from typing import Callable, Optional, Union
 
-from config import CLASS_NAMES
-from utils.preprocess_mask import one_hot
-
 
 class LumenStoneDataset(Dataset):
     def __init__(
@@ -45,7 +42,6 @@ class LumenStoneDataset(Dataset):
         image = np.array(Image.open(img_path).convert("RGB"), dtype=np.uint8) 
         mask = np.array(Image.open(mask_path).convert("L"), dtype=np.uint8) 
 
-        mask = one_hot(mask, len(CLASS_NAMES))
         if self._transform:
             transformed = self._transform(image=image, mask=mask)
             image = transformed["image"] # (3, H, W), dtype=torch.uint8
