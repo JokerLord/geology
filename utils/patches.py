@@ -84,8 +84,8 @@ def combine_from_patches(
 
     if isinstance(overlap, float):
         overlap = int(patch_size * overlap)
-    image = torch.zeros(patches[0].shape[:2] + src_shape, dtype=torch.float)
-    density = torch.zeros(*src_shape, dtype=torch.float)
+    image = torch.zeros(patches[0].shape[:2] + src_shape, dtype=torch.float).cuda()
+    density = torch.zeros(*src_shape, dtype=torch.float).cuda()
     coords = _get_patch_coords(src_shape, patch_size, conv_offset, overlap)
     for i, coord in enumerate(coords):
         y, x = coord
