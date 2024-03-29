@@ -58,6 +58,34 @@ class LumenStoneSegmentation(pl.LightningModule):
         loss = self.loss_func(logits, target.long())
 
         return {"loss": loss}
+    
+    def validation_step(self, batch, batch_idx):
+        inputs, target = batch
+
+        patches = split_into_patches(
+            inputs,
+            patch_size=PATCH_SIZE,
+            conv_offset=CONV_OFFSET,
+            overlap=PATCH_OVERLAP,
+        )
+
+        logits_patches = []
+        for patch in patches:
+            logits_patch = self(patch.float())
+            logits_patches.append(logits_patch.detach())
+
+        logits = combine_from_patches(
+            logits_patches,
+            patch_size=PATCH_SIZE,
+            conv_offset=CONV_OFFSET,
+            overlap=PATCH_OVERLAP,
+            src_shape=inputs.shape[-2:],
+        )
+        loss = self.loss_func(logits, target.long())
+
+        pred = torch.argmax(F.softmax(logits, dim=1), dim=1)
+
+        return {"val_loss": loss}
 
     def configure_optimizers(self):
         optimizer = self.optimizer(self.parameters(), lr=self.lr)
