@@ -145,7 +145,7 @@ class ResUNet(nn.Module):
         """ Classifier """
         self.outputs = nn.Conv2d(
             n_filters, n_classes, kernel_size=1
-        )  # (N, 16, x.H, x.W)
+        )  # (N, n_classes, x.H, x.W)
 
     def forward(self, inputs):
         s1, p1 = self.encoder1(inputs)
@@ -159,5 +159,7 @@ class ResUNet(nn.Module):
         x = self.decoder2(x, s3)
         x = self.decoder3(x, s2)
         x = self.decoder4(x, s1)
+
+        x = self.outputs(x)
 
         return x

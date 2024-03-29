@@ -53,7 +53,7 @@ class LumenStoneSegmentation(pl.LightningModule):
             patch_size=PATCH_SIZE,
             conv_offset=CONV_OFFSET,
             overlap=PATCH_OVERLAP,
-            src_shape=inputs.shape,
+            src_shape=inputs.shape[-2:],
         )
 
         loss = self.loss_func(logits, target)
