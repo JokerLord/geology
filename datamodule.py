@@ -66,13 +66,13 @@ class LumenStoneDataModule(pl.LightningDataModule):
             )
 
     def train_dataloader(self):
-        return DataLoader(self.lumenstone_train, batch_size=self.batch_size, num_workers=4)
+        return DataLoader(self.lumenstone_train, num_workers=4)
     
     def val_dataloader(self):
-        return DataLoader(self.lumenstone_val, batch_size=self.batch_size, num_workers=4)
+        return DataLoader(self.lumenstone_val, num_workers=4)
     
     def test_dataloader(self):
-        return DataLoader(self.lumenstone_test, batch_size=self.batch_size, num_workers=4)
+        return DataLoader(self.lumenstone_test, num_workers=4)
     
     def predict_dataloader(self):
-        return DataLoader(self.lumenstone_predict, batch_size=self.batch_size, num_workers=4)
+        return DataLoader(self.lumenstone_predict, num_workers=4)
