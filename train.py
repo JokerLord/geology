@@ -15,7 +15,7 @@ from utils.patches import split_into_patches, combine_from_patches
 
 
 def train(gpu_index: int):
-    trainer = pl.Trainer(max_epochs=1, accelerator="gpu", devices=[gpu_index])
+    trainer = pl.Trainer(max_epochs=5, accelerator="gpu", devices=[gpu_index])
     datamodule = LumenStoneDataModule(
         root_dir=LUMENSTONE_PATH,
         batch_size=BATCH_SIZE,
@@ -36,6 +36,7 @@ def train(gpu_index: int):
         loss_func=torch.nn.CrossEntropyLoss(),
         optimizer=torch.optim.Adam,
         lr=LR,
+        gpu_index=gpu_index,
     )
 
     trainer.fit(model=model, datamodule=datamodule)
