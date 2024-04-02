@@ -6,12 +6,12 @@ import torch.nn.functional as F
 
 import pytorch_lightning as pl
 
-from model.res_unet import ResUNet
+from res_unet import ResUNet
 from dataset import LumenStoneDataset
 from datamodule import LumenStoneDataModule
 from model.model import LumenStoneSegmentation
 from config import *
-from utils.patches import split_into_patches, combine_from_patches
+from utils import split_into_patches, combine_from_patches
 
 
 def train(gpu_index: int):

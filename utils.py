@@ -100,3 +100,22 @@ def combine_from_patches(
     density[density == 0] = 1
     image /= density
     return image
+
+
+def one_hot(mask, n_classes):
+    """
+    Applies one hot encoding
+
+    Arguments:
+        mask (np.ndarray): Input tensor with size (x.H, x.W).
+        n_classes (int): Total number of classes.
+
+    Return:
+        new_mask (np.ndarray): Output tensor with size (n_classes, x.H, x.W)
+    """
+
+    new_mask = []
+    for i in range(1, n_classes + 1):
+        new_mask.append(mask == i)
+    new_mask = np.array(new_mask, np.uint8)
+    return new_mask.transpose([1, 2, 0])
