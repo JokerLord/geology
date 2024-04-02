@@ -44,15 +44,14 @@ class ConvRes(nn.Module):
         nn.init.xavier_normal_(self.conv2.weight)
 
     def forward(self, inputs):
-        s = self.shortcut_bn(self.shortcut(inputs))
-
-        x = F.relu(self.conv1(inputs))
+        x = F.relu(self.conv1(inputs), inplace=True)
         if self.BN:
             x = self.bn1(x)
-        x = F.relu(self.conv2(x))
+        x = F.relu(self.conv2(x), inplace=True)
         if self.BN:
             x = self.bn2(x)
 
+        s = self.shortcut_bn(self.shortcut(inputs))
         return x + s
 
 
@@ -148,12 +147,12 @@ class ResUNet(nn.Module):
         )  # (N, n_classes, x.H, x.W)
 
     def forward(self, inputs):
-        s1, p1 = self.encoder1(inputs)
-        s2, p2 = self.encoder2(p1)
-        s3, p3 = self.encoder3(p2)
-        s4, p4 = self.encoder4(p3)
+        s1, x = self.encoder1(inputs)
+        s2, x = self.encoder2(x)
+        s3, x = self.encoder3(x)
+        s4, x = self.encoder4(x)
 
-        x = self.bridge(p4)
+        x = self.bridge(x)
 
         x = self.decoder1(x, s4)
         x = self.decoder2(x, s3)
