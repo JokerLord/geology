@@ -68,8 +68,6 @@ class LumenStoneSegmentation(pl.LightningModule):
         return self.model(inputs)
 
     def shared_step(self, batch, stage: str) -> torch.Tensor:
-        torch.backends.cudnn.deterministic=True
-        torch.backends.cudnn.benchmark = False;
         print("NEW STEP")
         print(stage)
         inputs, target = batch
