@@ -6,8 +6,8 @@ from torchmetrics import Accuracy, JaccardIndex
 import torch
 import torch.nn.functional as F
 
-from model.res_unet import ResUNet
-from utils.patches import split_into_patches, combine_from_patches
+from res_unet import ResUNet
+from utils import split_into_patches, combine_from_patches
 
 from typing import Callable
 
@@ -22,7 +22,7 @@ class LumenStoneSegmentation(pl.LightningModule):
         patch_size: int,
         batch_size: int,
         offset: int,
-        patch_overlap: int,
+        patch_overlap: float,
         loss_func: Callable,
         optimizer: Callable,
         lr: float,

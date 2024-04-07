@@ -9,7 +9,7 @@ import pytorch_lightning as pl
 from res_unet import ResUNet
 from dataset import LumenStoneDataset
 from datamodule import LumenStoneDataModule
-from model.model import LumenStoneSegmentation
+from model import LumenStoneSegmentation
 from config import *
 from utils import split_into_patches, combine_from_patches
 
