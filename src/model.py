@@ -1,182 +1,125 @@
-import pytorch_lightning as pl
-from pytorch_lightning.callbacks import ModelCheckpoint
-from pytorch_lightning.callbacks.early_stopping import EarlyStopping
-from torchmetrics import Accuracy, JaccardIndex
-
 import torch
+import torch.nn as nn
 import torch.nn.functional as F
 
-from res_unet import ResUNet
-from utils import split_into_patches, combine_from_patches
+from torch.utils.data import Subset, DataLoader
+from torch import Tensor
 
+from res_unet import ResUNet
+from dataset import LumenStoneDataset
+from utils import split_into_patches, combine_from_patches
+from config import *
+
+import random
+from sklearn.model_selection import train_test_split
 from typing import Callable
 
 
-class LumenStoneSegmentation(pl.LightningModule):
-    def __init__(
-        self,
-        n_classes: int,
-        n_channels: int,
-        n_filters: int,
-        BN: bool,
-        patch_size: int,
-        batch_size: int,
-        offset: int,
-        patch_overlap: float,
-        loss_func: Callable,
-        optimizer: Callable,
-        lr: float,
-        gpu_index: int,
-    ):
-        super().__init__()
-
-        self.model = ResUNet(n_classes, n_channels, n_filters, BN)
-
-        self.patch_size = patch_size
-        self.batch_size = batch_size
-        self.offset = offset
-        self.patch_overlap = patch_overlap
-
-        self.loss_func = loss_func
+class Trainer:
+    def __init__(self, model, criterion, optimizer, device, max_epochs) -> None:
+        self.model = model
+        self.criterion = criterion
         self.optimizer = optimizer
-        self.lr = lr
+        self.device = device
+        self.max_epochs = max_epochs
 
-        self.step_outputs = {
-            "loss": [],
-            "accuracy": [],
-            "iou": [],
-        }
+        self._train_dataset = LumenStoneDataset(
+            root_dir=LUMENSTONE_PATH, train=True, transform=TRAIN_TRANSFORM
+        )
+        self._val_dataset = LumenStoneDataset(
+            root_dir=LUMENSTONE_PATH, train=True, transform=VAL_TRANSFORM
+        )
 
-        device = torch.device(f"cuda:{gpu_index}")
+    def _split_dataset(self) -> tuple[DataLoader, DataLoader]:
+        indices = list(range(len(self._train_dataset)))
+        train_indices, val_indices = train_test_split(
+            indices, train_size=SPLIT_RATIO, shuffle=True)
+        train_dataset = Subset(self._train_dataset, train_indices)
+        val_dataset = Subset(self._val_dataset, val_indices)
+        train_dataloader = DataLoader(train_dataset, batch_size=1, num_workers=4)
+        val_dataloader = DataLoader(val_dataset, batch_size=1, num_workers=4)
+        return train_dataloader, val_dataloader
 
-        self.metrics = {
-            "accuracy": Accuracy(task="multiclass",
-                                 threshold=0.5,
-                                 num_classes=n_classes,
-                                 validate_args=False,
-                                 ignore_index=None,
-                                 average="micro").to(device),
-            "iou": JaccardIndex(task="multiclass",
-                                threshold=0.5,
-                                num_classes=n_classes,
-                                validate_args=False,
-                                ignore_index=None,
-                                average="macro").to(device),
-        }
+    def _train_one_image(self, inputs: Tensor, target: Tensor) -> float:
+        """
+        Arguments:
+            inputs: Input image of size (3, H, W)
+            target: Image mask of size (H, W)
+        Returns:
+            image_loss (float): mean loss for the whole image
+        """
 
-    def forward(self, inputs):
-        return self.model(inputs)
-
-    def shared_step(self, batch, stage: str) -> torch.Tensor:
-        print("NEW STEP")
-        print(stage)
-        inputs, target = batch
-        inputs = inputs[0]
-        target = target[0]
-
-        patches = split_into_patches(
+        image_loss = 0
+        input_patches = split_into_patches(
             inputs,
-            patch_size=self.patch_size,
-            offset=self.offset,
-            overlap=self.patch_overlap,
+            patch_size=PATCH_SIZE,
+            offset=OFFSET,
+            overlap=PATCH_OVERLAP
         )
-        init_n_patches = len(patches)
-
-        while (len(patches) % self.batch_size != 0):
-            patches.append(patches[-1])
-
-        logits_patches = []
-        for i in range(0, len(patches), self.batch_size):
-            batch = torch.stack(patches[i: i + self.batch_size])
-            logits_batch = self(batch.to(torch.float32))
-            print(i)
-            print(torch.cuda.memory_allocated() / 1024 ** 3)
-            # print(torch.cuda.max_memory_allocated() / 1024 ** 3)
-
-            for logits_patch in logits_batch:
-                logits_patches.append(logits_patch)
-
-        logits_patches = logits_patches[:init_n_patches]
-
-        logits = combine_from_patches(
-            logits_patches,
-            patch_size=self.patch_size,
-            offset=self.offset,
-            overlap=self.patch_overlap,
-            src_shape=inputs.shape[-2:],
+        target_patches = split_into_patches(
+            target,
+            patch_size=PATCH_SIZE,
+            offset=OFFSET,
+            overlap=PATCH_OVERLAP
         )
 
-        logits = logits[None, ...]
-        target = target[None, ...]
+        """ Make total number of patches a multiple of BATCH_SIZE """
+        while (len(input_patches) % BATCH_SIZE != 0):
+            input_patches.append(input_patches[-1])
+            target_patches.append(target_patches[-1])
 
-        activated = F.softmax(input=logits, dim=1)
-        predictions = torch.argmax(activated, dim=1)
+        """ Shuffle patches """
+        zipped_patches = list(zip(input_patches, target_patches))
+        random.shuffle(zipped_patches)
+        input_patches, target_patches = zip(*zipped_patches)
 
-        loss = self.loss_func(logits, target.to(torch.int64))
+        for i in range(0, len(input_patches), BATCH_SIZE):
+            batch = torch.stack(input_patches[i: i + BATCH_SIZE]).to(device=self.device, dtype=torch.float32)
+            logits_batch = self.model(batch)
+            target_batch = torch.stack(target_patches[i: i + BATCH_SIZE]).to(device=self.device, dtype=torch.int64)
+            loss = self.criterion(logits_batch, target_batch)
+            self.optimizer.zero_grad()
+            loss.backward()
+            self.optimizer.step()
+            image_loss += loss.item()
 
-        accuracy = self.metrics["accuracy"](predictions, target)
-        iou = self.metrics["iou"](predictions, target)
+        return image_loss / (len(input_patches) // BATCH_SIZE)
 
-        self.step_outputs["loss"].append(loss)
-        self.step_outputs["accuracy"].append(accuracy)
-        self.step_outputs["iou"].append(iou)
+    def fit(self):
+        self.model.to(self.device)
+        for epoch in range(self.max_epochs):
+            train_dataloader, val_dataloader = self._split_dataset()
 
-        return loss
+            self.model.train()
+            train_loss = 0
+            for batch in train_dataloader:
+                inputs, target = batch
+                image_loss = self._train_one_image(inputs[0], target[0])
+                train_loss += image_loss
+            train_loss = train_loss / len(train_dataloader)
 
-    def shared_epoch_end(self, stage: str):
-        loss = torch.mean(torch.tensor([
-            loss for loss in self.step_outputs["loss"]
-        ]))
+            with torch.no_grad():
+                for batch in val_dataloader:
+                    inputs, target = batch
+            print(f"Epoch {epoch}: train_loss: {train_loss:.3f}")
 
-        accuracy = torch.mean(torch.tensor([
-            accuracy for accuracy in self.step_outputs["accuracy"]
-        ]))
+                    # logits_patches = logits_patches[:init_n_patches]
 
-        iou = torch.mean(torch.tensor([
-            iou for iou in self.step_outputs["iou"]
-        ]))
+                    # logits = combine_from_patches(
+                    #     logits_patches,
+                    #     patch_size=PATCH_SIZE,
+                    #     offset=OFFSET,
+                    #     overlap=PATCH_OVERLAP,
+                    #     src_shape=inputs.shape[-2:],
+                    # )
 
-        for key in self.step_outputs.keys():
-            self.step_outputs[key].clear()
+                    # logits = logits[None, ...]
+                    # target = target[None, ...]
 
-        metrics = {
-            f"{stage}_loss": loss,
-            f"{stage}_accuracy": accuracy,
-            f"{stage}_iou": iou,
-        }
+                    # activated = F.softmax(input=logits, dim=1)
+                    # predictions = torch.argmax(activated, dim=1)
 
-        self.log_dict(metrics, prog_bar=True)
-
-    def training_step(self, batch, batch_idx):
-        return self.shared_step(batch=batch, stage="train")
-
-    def on_train_epoch_end(self):
-        return self.shared_epoch_end(stage="train")
-
-    def validation_step(self, batch, batch_idx):
-        return self.shared_step(batch=batch, stage="val")
-
-    def on_validation_epoch_end(self):
-        return self.shared_epoch_end(stage="val")
-
-    def step_step(self, batch, batch_idx):
-        return self.shared_step(batch=batch, stage="test")
-
-    def on_test_epoch_end(self):
-        return self.shared_epoch_end(stage="test")
-    
-    def configure_optimizers(self):
-        optimizer = self.optimizer(self.parameters(), lr=self.lr)
-
-        lr_scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-            optimizer, mode="min", patience=5
-        )
-
-        scheduler_dict = {
-            "scheduler": lr_scheduler,
-            "interval": "epoch",
-            "monitor": "val_loss",
-        }
-
-        optim_dict = {"optimizer": optimizer, "lr_shedular": scheduler_dict}
-        return optim_dict
+                    # loss = self.criterion(logits, target.to(torch.int64))
+                    # self.optimizer.zero_grad()
+                    # loss.backward()
+                    # self.optimizer.step()
