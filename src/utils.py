@@ -104,20 +104,19 @@ def combine_from_patches(
     return image
 
 
-def one_hot(mask, n_classes):
+def one_hot(mask: Tensor, n_classes: int) -> Tensor:
     """
     Applies one hot encoding
 
     Arguments:
-        mask (np.ndarray): Input tensor with size (x.H, x.W).
-        n_classes (int): Total number of classes.
+        mask (Tensor): Input tensor with size (H, W) with elements in range [0, n_classes)
+        n_classes (int): Total number of classes
 
     Return:
-        new_mask (np.ndarray): Output tensor with size (n_classes, x.H, x.W)
+        one_hot_mask (Tensor): Output tensor with size (n_classes, H, W)
     """
 
     new_mask = []
-    for i in range(1, n_classes + 1):
+    for i in range(n_classes):
         new_mask.append(mask == i)
-    new_mask = np.array(new_mask, np.uint8)
-    return new_mask.transpose([1, 2, 0])
+    return torch.stack(new_mask, dim=0).to(dtype=torch.uint8)
