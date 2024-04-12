@@ -4,7 +4,7 @@ import torch
 
 from typing import Union
 from torch import Tensor
-
+from pathlib import Path
 
 def _get_patch_coords(
     img_shape: tuple[int, int], patch_size: int, offset: int, overlap: int
@@ -120,3 +120,12 @@ def one_hot(mask: Tensor, n_classes: int) -> Tensor:
     for i in range(n_classes):
         new_mask.append(mask == i)
     return torch.stack(new_mask, dim=0).to(dtype=torch.uint8)
+
+def prepare_experiment(output_path: Path) -> Path:
+    output_path.mkdir(parents=True, exist_ok=True)
+    dirs = list(output_path.iterdir())
+    dirs = [d for d in dirs if d.name.startswith("exp_")]
+    exp_id = max(int(d.name.split("_")[1]) for d in dirs) + 1 if dirs else 1
+    exp_path = output_path / f"exp_{exp_id}"
+    exp_path.mkdir()
+    return exp_path
