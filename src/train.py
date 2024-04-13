@@ -4,11 +4,8 @@ import argparse
 import torch
 import torch.nn.functional as F
 
-import pytorch_lightning as pl
-
 from res_unet import ResUNet
 from dataset import LumenStoneDataset
-from datamodule import LumenStoneDataModule
 from model import Trainer
 from config import *
 

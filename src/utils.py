@@ -131,3 +131,22 @@ def prepare_experiment(output_path: Path) -> Path:
     exp_path = output_path / f"exp_{exp_id}"
     exp_path.mkdir()
     return exp_path
+
+
+def mean_iou(iou_per_class: dict[str, float], weights=None) -> float:
+    """
+    Calculates average IoU metric over all classes
+
+    Arguments:
+        iou_per_class (dict[str, float]): Dictionary of IoU metrics for each class
+        weights (list, Optional): List of weights for each class. Default: None
+    
+    Returns:
+        mean_iou (float): Weighted mean iou
+    """
+
+    if weights is None:
+        return sum(iou for iou in iou_per_class.values()) / len(iou_per_class)
+    else:
+        """ Not implemented yet """
+        pass

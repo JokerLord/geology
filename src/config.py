@@ -4,7 +4,8 @@ from albumentations.pytorch import ToTensorV2
 from pathlib import Path
 
 
-LUMENSTONE_PATH = Path.home() / "dev_data" / "LumenStone" / "S1_v1"
+# LUMENSTONE_PATH = Path.home() / "dev_data" / "LumenStone" / "S1_v1"
+LUMENSTONE_PATH = Path.cwd().parent / "LumenStone" / "S1_v1"
 
 CLASS_NAMES = [
     "BG",

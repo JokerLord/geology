@@ -7,7 +7,7 @@ from torch import Tensor
 
 from res_unet import ResUNet
 from dataset import LumenStoneDataset
-from utils import split_into_patches, combine_from_patches, one_hot
+from utils import *
 from config import *
 from metrics import iou_per_class, accuracy
 
@@ -83,7 +83,7 @@ class Trainer:
         return {"train_loss": avg_loss}
 
     
-    def _validate_image(self, batch: tuple[Tensor, Tensor]) -> dict[str, float]:
+    def _validate_image(self, batch: tuple[Tensor, Tensor]) -> dict:
         inputs, target = batch # (1, 3, H, W), (1, H, W)
         inputs, target = torch.squeeze(inputs), torch.squeeze(target) # (3, H, W), (H, W)
 
@@ -117,7 +117,7 @@ class Trainer:
 
                 for logits_patch in logits_batch:
                     logits_patches.append(logits_patch)
-        avg_loss = sum(losses) / len(losses)
+        output_dict = {"val_loss": sum(losses) / len(losses)}
 
         logits_patches = logits_patches[:init_n_patches]
         logits = combine_from_patches(
@@ -128,13 +128,28 @@ class Trainer:
             src_shape=inputs.shape[-2:],
         ) # (n_classes, H, W) in CPU memory
     
-        activated = F.softmax(input=logits, dim=1) # (n_classes, H, W)
-        y_true = one_hot(target, n_classes=len(CLASS_NAMES))
-        iou_per_class(y_true, activated)
+        """ Prepare for metrics calculation """
+        if OFFSET > 0:
+            logits_cropped = logits[..., OFFSET: -OFFSET, OFFSET: -OFFSET]
+            target_cropped = target[..., OFFSET: -OFFSET, OFFSET: -OFFSET]
 
-        mask = torch.argmax(activated, dim=0) # (H, W)
+        """ Metrics for output activation """
+        activated = F.softmax(input=logits_cropped, dim=1)
+        y_true = one_hot(target_cropped, n_classes=len(CLASS_NAMES))
+        iou_activated_per_class = iou_per_class(y_true, activated)
+        output_dict["iou_activated_per_class"] = iou_activated_per_class
+
+        """ Metrics for prediction """
+        mask = torch.argmax(activated, dim=0)
         prediction = one_hot(mask, n_classes=len(CLASS_NAMES))
+        iou_pred_per_class = iou_per_class(y_true, prediction)
+        output_dict["iou_pred_per_class"] = iou_pred_per_class
 
+        output_dict["mean_iou_activated"] = mean_iou(iou_activated_per_class)
+        output_dict["mean_iou_pred"] = mean_iou(iou_pred_per_class)
+
+        output_dict["accuracy"] = accuracy(y_true, prediction)
+        return output_dict
         
 
     def fit(self):
