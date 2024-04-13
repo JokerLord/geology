@@ -78,7 +78,7 @@ class Trainer:
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
-            losses.append(loss.item)
+            losses.append(loss.item())
         avg_loss = sum(losses) / len(losses)
         return {"train_loss": avg_loss}
 
@@ -106,10 +106,10 @@ class Trainer:
             for i in range(0, len(inputs_patches), BATCH_SIZE):
                 inputs_batch = torch.stack(inputs_patches[i : i + BATCH_SIZE]).to(
                     device=self.device, dtype=torch.float32
-                ) # (batch_size, 3, patch_size, patch_size)
-                logits_batch = self.model(inputs_batch)  # (batch_size, n_classes, patch_size, patch_size)
+                ) # (batch_size, 3, patch_size, patch_size) in GPU memory
+                logits_batch = self.model(inputs_batch).cpu()  # (batch_size, n_classes, patch_size, patch_size) in CPU memory
                 target_batch = torch.stack(target_patches[i: i + BATCH_SIZE]).to(
-                    device=self.device, dtype=torch.int64
+                    dtype=torch.int64
                 ) # (batch_size, patch_size, patch_size)
 
                 loss = self.criterion(logits_batch, target_batch)
