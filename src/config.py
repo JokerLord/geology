@@ -22,13 +22,9 @@ CLASS_NAMES = [
     "Kvl",
 ]
 
-TRAIN_TRANSFORM = A.Compose([
-    ToTensorV2(transpose_mask=True)
-])
+TRAIN_TRANSFORM = A.Compose([ToTensorV2(transpose_mask=True)])
 
-VAL_TRANSFORM = A.Compose([
-    ToTensorV2(transpose_mask=True)
-])
+VAL_TRANSFORM = A.Compose([ToTensorV2(transpose_mask=True)])
 
 N_FILTERS = 16
 

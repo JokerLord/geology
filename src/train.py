@@ -11,23 +11,25 @@ from dataset import LumenStoneDataset
 from datamodule import LumenStoneDataModule
 from model import Trainer
 from config import *
-from utils import split_into_patches, combine_from_patches
 
 
 def train(gpu_index: int):
-    model=ResUNet(len(CLASS_NAMES), 3, N_FILTERS, True)
+    model = ResUNet(len(CLASS_NAMES), 3, N_FILTERS, True)
 
     trainer = Trainer(
         model=model,
         criterion=torch.nn.CrossEntropyLoss(),
         optimizer=torch.optim.Adam(model.parameters(), lr=LR),
         device=torch.device(f"cuda:{gpu_index}"),
-        max_epochs=1
+        max_epochs=1,
     )
+
+    trainer.fit()
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("gpu_index", type=int, help="GPU index")
 
     args = parser.parse_args()
-    train(args.gpu_index)    
+    train(args.gpu_index)

@@ -6,6 +6,7 @@ from typing import Union
 from torch import Tensor
 from pathlib import Path
 
+
 def _get_patch_coords(
     img_shape: tuple[int, int], patch_size: int, offset: int, overlap: int
 ) -> list[tuple[int, int]]:
@@ -120,6 +121,7 @@ def one_hot(mask: Tensor, n_classes: int) -> Tensor:
     for i in range(n_classes):
         new_mask.append(mask == i)
     return torch.stack(new_mask, dim=0).to(dtype=torch.uint8)
+
 
 def prepare_experiment(output_path: Path) -> Path:
     output_path.mkdir(parents=True, exist_ok=True)
