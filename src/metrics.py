@@ -1,5 +1,7 @@
 import torch
+
 from torch import Tensor
+from config import *
 
 
 def iou(y_true: Tensor, y_pred: Tensor, smooth: float = 1.0) -> float:
@@ -19,7 +21,7 @@ def iou(y_true: Tensor, y_pred: Tensor, smooth: float = 1.0) -> float:
     return (intersection + smooth).item() / (union + smooth).item()
 
 
-def iou_per_class(y_true: Tensor, y_pred: Tensor, smooth: float = 1.0) -> list[float]:
+def iou_per_class(y_true: Tensor, y_pred: Tensor, smooth: float = 1.0) -> dict[str, float]:
     """
     Arguments:
         y_true (Tensor): One hot encoded tensor of size (n_classes, H, W)
@@ -27,12 +29,12 @@ def iou_per_class(y_true: Tensor, y_pred: Tensor, smooth: float = 1.0) -> list[f
         smooth (float, Optional): Smooth coefficient. Default: 1.0
 
     Returns:
-        iou_vals (list[float]): List of IoU metrics per each of n_classes classes
+        iou_dict (dict[str, float]): Dictionary of IoU metrics for each class
     """
-    iou_vals = []
+    iou_dict = {}
     for i in range(y_true.shape[0]):
-        iou_vals.append(iou(y_true[i], y_pred[i], smooth))
-    return iou_vals
+        iou_dict[CLASS_NAMES[i]] = iou(y_true[i], y_pred[i], smooth)
+    return iou_dict
 
 
 def accuracy(y_true: Tensor, y_pred: Tensor) -> float:
