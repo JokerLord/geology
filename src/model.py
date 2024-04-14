@@ -152,6 +152,26 @@ class Trainer:
 
         output_dict["accuracy"] = accuracy(y_true, prediction)
         return output_dict
+
+
+    def _epoch_end(self, epoch: int, train_outputs: list[dict], val_outputs: list[dict]) -> None:
+        train_losses = [x["train_loss"] for x in train_outputs]
+        avg_train_loss = sum(train_losses) / len(train_losses)
+
+        val_losses = [x["val_loss"] for x in val_outputs]
+        avg_val_loss = sum(val_losses) / len(val_losses)
+
+        mean_ious_pred = [x["mean_iou_pred"] for x in val_outputs]
+        avg_mean_iou_pred = sum(mean_ious_pred) / len(mean_ious_pred)
+
+        accuracies = [x["accuracy"] for x in val_outputs]
+        avg_accuracy = sum(accuracies) / len(accuracies)
+
+        """ Print training/validation statistics """
+        print(f"""[Epoch: {epoch}] Training loss: {avg_train_loss:.3f}
+                                   Validation loss: {avg_val_loss:.3f}
+                                   Mean IoU (prediction): {avg_mean_iou_pred:.3f}
+                                   Accuracy: {avg_accuracy:.3f}""")
         
 
     def fit(self):
@@ -168,7 +188,14 @@ class Trainer:
 
             self.model.eval()
             val_outputs = []
-            bar = tqdm(val_dataloader, postfix={"val_loss": 0.0, "mean_iou": 0.0})
+            bar = tqdm(val_dataloader, postfix={"val_loss": 0.0, "mean_iou_pred": 0.0, "accuracy": 0.0})
             for inputs, target in bar:
                 val_outputs.append(self._validate_image(inputs, target))
-                bar.set_postfix(ordered_dict={"val_loss": val_outputs[-1]["val_loss"], "mean_iou": val_outputs[-1]["mean_iou_pred"]})
+                bar.set_postfix(ordered_dict={
+                    "val_loss": val_outputs[-1]["val_loss"],
+                    "mean_iou_pred": val_outputs[-1]["mean_iou_pred"],
+                    "accuracy": val_outputs[-1]["accuracy"],
+                })
+
+            self._epoch_end(epoch, train_outputs, val_outputs)
+        torch.save(self.model.state_dict(), Path.cwd() / "tmp" / "tmp1.pth")
