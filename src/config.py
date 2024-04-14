@@ -4,8 +4,8 @@ from albumentations.pytorch import ToTensorV2
 from pathlib import Path
 
 
-# LUMENSTONE_PATH = Path.home() / "dev_data" / "LumenStone" / "S1_v1"
-LUMENSTONE_PATH = Path.cwd().parent / "LumenStone" / "S1_v1"
+# LUMENSTONE_PATH = Path.home() / "dev_data" / "LumenStone" / "S1_v1" # on local machine
+LUMENSTONE_PATH = Path.cwd().parent / "LumenStone" / "S1_v1" # on sinope server
 
 CLASS_NAMES = [
     "BG",
@@ -22,6 +22,8 @@ CLASS_NAMES = [
     "Tnt/Ttr",
     "Kvl",
 ]
+
+MISSED_CLASS_CODES = [3, 5, 7, 9, 10, 12]
 
 TRAIN_TRANSFORM = A.Compose([ToTensorV2(transpose_mask=True)])
 

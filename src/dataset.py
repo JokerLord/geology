@@ -5,6 +5,7 @@ from torch.utils.data import Dataset
 from pathlib import Path
 from PIL import Image
 from typing import Callable, Optional, Union
+from utils import preprocess_mask
 
 
 class LumenStoneDataset(Dataset):
@@ -39,14 +40,16 @@ class LumenStoneDataset(Dataset):
 
     def __getitem__(self, idx):
         img_path, mask_path = self._items[idx]
-        image = np.array(Image.open(img_path).convert("RGB"), dtype=np.uint8) 
+        image = np.array(Image.open(img_path).convert("RGB"), dtype=np.float32) / 255
         mask = np.array(Image.open(mask_path).convert("L"), dtype=np.uint8) 
 
         if self._transform:
             transformed = self._transform(image=image, mask=mask)
-            image = transformed["image"] # (3, H, W), dtype=torch.uint8
-            mask = transformed["mask"] # (n_classes, H, W), dtype=torch.uint8
-        return image, mask
+            image = transformed["image"] # (3, H, W), dtype=torch.float32
+            mask = transformed["mask"] # (H, W), dtype=torch.uint8
+
+        target = preprocess_mask(mask) # (n_classes, H, W)
+        return image, target
 
     def __len__(self):
         return len(self._items)

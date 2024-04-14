@@ -5,6 +5,12 @@ import torch
 from typing import Union
 from torch import Tensor
 from pathlib import Path
+from config import *
+
+
+present_class_codes = [code for code in range(len(CLASS_NAMES)) if code not in MISSED_CLASS_CODES]
+codes2squeezed_codes = {code: i for i, code in enumerate(present_class_codes)}
+squeezed_codes2labels = {i: CLASS_NAMES[code] for i, code in enumerate(present_class_codes)}
 
 
 def _get_patch_coords(
@@ -121,7 +127,9 @@ def one_hot(mask: Tensor, n_classes: int) -> Tensor:
     new_mask = []
     for i in range(n_classes):
         new_mask.append(mask == i)
-    return torch.stack(new_mask, dim=0).to(dtype=torch.uint8)
+    
+    one_hot_mask = torch.stack(new_mask, dim=0).to(dtype=torch.float32)
+    return one_hot_mask
 
 
 def prepare_experiment(output_path: Path) -> Path:
@@ -151,3 +159,22 @@ def mean_iou(iou_per_class: dict[str, float], weights=None) -> float:
     else:
         """ Not implemented yet """
         pass
+
+
+def preprocess_mask(mask: Tensor) -> Tensor:
+    """
+    Squeeze codes in mask and apply one hot encoding
+
+    Arguments:
+        mask (Tensor): Input mask of size (H, W)
+
+    Returns:
+        target (Tensor): One hot encoded mask of shape (n_classes, H, W)
+    """
+
+    """ Squeeze mask """
+    squeezed_mask = torch.zeros_like(mask)
+    for code, squeezed_code in codes2squeezed_codes.items():
+        squeezed_mask[mask == code] = squeezed_code
+    
+    return one_hot(squeezed_mask, len(present_class_codes))

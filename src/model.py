@@ -69,11 +69,11 @@ class Trainer:
         losses = []
         for i in range(0, len(inputs_patches), BATCH_SIZE):
             inputs_batch = torch.stack(inputs_patches[i : i + BATCH_SIZE]).to(
-                device=self.device, dtype=torch.float32
+                device=self.device
             ) # (batch_size, 3, patch_size, patch_size)
             logits_batch = self.model(inputs_batch)  # (batch_size, n_classes, patch_size, patch_size)
             target_batch = torch.stack(target_patches[i : i + BATCH_SIZE]).to(
-                device=self.device, dtype=torch.int64
+                device=self.device
             )  # (batch_size, patch_size, patch_size)
             loss = self.criterion(logits_batch, target_batch)
             self.optimizer.zero_grad()
@@ -85,7 +85,7 @@ class Trainer:
 
     
     def _validate_image(self, inputs: Tensor, target: Tensor) -> dict:
-        inputs, target = torch.squeeze(inputs), torch.squeeze(target) # (3, H, W), (H, W)
+        inputs, target = torch.squeeze(inputs), torch.squeeze(target) # (3, H, W), (n_classes, H, W)
 
         inputs_patches = split_into_patches(
             image=inputs, patch_size=PATCH_SIZE, offset=OFFSET, overlap=PATCH_OVERLAP
@@ -105,12 +105,12 @@ class Trainer:
             losses = []
             for i in range(0, len(inputs_patches), BATCH_SIZE):
                 inputs_batch = torch.stack(inputs_patches[i : i + BATCH_SIZE]).to(
-                    device=self.device, dtype=torch.float32
-                ) # (batch_size, 3, patch_size, patch_size) in GPU memory
-                logits_batch = self.model(inputs_batch)  # (batch_size, n_classes, patch_size, patch_size) in GPU memory
+                    device=self.device
+                ) # (batch_size, 3, patch_size, patch_size)
+                logits_batch = self.model(inputs_batch)  # (batch_size, n_classes, patch_size, patch_size)
                 target_batch = torch.stack(target_patches[i: i + BATCH_SIZE]).to(
-                    device=self.device, dtype=torch.int64
-                ) # (batch_size, patch_size, patch_size) in GPU memory
+                    device=self.device
+                ) # (batch_size, n_classes, patch_size, patch_size)
 
                 loss = self.criterion(logits_batch, target_batch)
                 losses.append(loss.item())
@@ -129,7 +129,7 @@ class Trainer:
             src_shape=inputs.shape[-2:],
             device=self.device
         ) # (n_classes, H, W) in GPU memory
-        target = target.to(device=self.device, dtype=torch.float32)
+        target = target.to(device=self.device)
     
         """ Prepare for metrics calculation """
         if OFFSET > 0:
@@ -137,21 +137,20 @@ class Trainer:
             target_cropped = target[..., OFFSET: -OFFSET, OFFSET: -OFFSET]
 
         """ Metrics for output activation """
-        activated = F.softmax(input=logits_cropped, dim=1)
-        y_true = one_hot(target_cropped, n_classes=len(CLASS_NAMES))
-        iou_activated_per_class = iou_per_class(y_true, activated)
+        activated = F.softmax(input=logits_cropped, dim=1) # (n_classes, H, W)
+        iou_activated_per_class = iou_per_class(target, activated)
         output_dict["iou_activated_per_class"] = iou_activated_per_class
 
         """ Metrics for prediction """
-        mask = torch.argmax(activated, dim=0)
-        prediction = one_hot(mask, n_classes=len(CLASS_NAMES))
-        iou_pred_per_class = iou_per_class(y_true, prediction)
+        prediction_mask = torch.argmax(activated, dim=0) # (H, W)
+        prediction = one_hot(prediction_mask, n_classes=activated.shape[0])
+        iou_pred_per_class = iou_per_class(target, prediction)
         output_dict["iou_pred_per_class"] = iou_pred_per_class
 
         output_dict["mean_iou_activated"] = mean_iou(iou_activated_per_class)
         output_dict["mean_iou_pred"] = mean_iou(iou_pred_per_class)
 
-        output_dict["accuracy"] = accuracy(y_true, prediction)
+        output_dict["accuracy"] = accuracy(target, prediction)
         return output_dict
 
 

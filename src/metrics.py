@@ -2,6 +2,7 @@ import torch
 
 from torch import Tensor
 from config import *
+from utils import squeezed_codes2labels
 
 
 def iou(y_true: Tensor, y_pred: Tensor, smooth: float = 1.0) -> float:
@@ -33,7 +34,7 @@ def iou_per_class(y_true: Tensor, y_pred: Tensor, smooth: float = 1.0) -> dict[s
     """
     iou_dict = {}
     for i in range(y_true.shape[0]):
-        iou_dict[CLASS_NAMES[i]] = iou(y_true[i], y_pred[i], smooth)
+        iou_dict[squeezed_codes2labels[i]] = iou(y_true[i], y_pred[i], smooth)
     return iou_dict
 
 

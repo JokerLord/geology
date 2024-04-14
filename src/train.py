@@ -8,10 +8,11 @@ from res_unet import ResUNet
 from dataset import LumenStoneDataset
 from model import Trainer
 from config import *
+from utils import present_class_codes
 
 
 def train(gpu_index: int):
-    model = ResUNet(len(CLASS_NAMES), 3, N_FILTERS, True)
+    model = ResUNet(len(present_class_codes), 3, N_FILTERS, True)
     optimizer = torch.optim.Adam(model.parameters(), lr=LR)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
         optimizer,
