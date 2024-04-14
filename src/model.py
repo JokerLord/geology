@@ -161,8 +161,10 @@ class Trainer:
 
             self.model.train()
             train_outputs = []
-            for inputs, target in train_dataloader:
+            bar = tqdm(train_dataloader, postfix={"train_loss": 0.0})
+            for inputs, target in bar:
                 train_outputs.append(self._train_image(inputs, target))
+                bar.set_postfix(ordered_dict={"train_loss": train_outputs[-1]["train_loss"]})
 
             self.model.eval()
             val_outputs = []
