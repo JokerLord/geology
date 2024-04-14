@@ -69,6 +69,7 @@ def combine_from_patches(
     offset: int,
     overlap: Union[int, float],
     src_shape: tuple[int, int],
+    device: torch.device,
 ) -> Tensor:
     """
     Combines patches back into the image.
@@ -87,8 +88,8 @@ def combine_from_patches(
 
     if isinstance(overlap, float):
         overlap = int(patch_size * overlap)
-    image = torch.zeros(patches[0].shape[:-2] + src_shape, dtype=torch.float32)
-    density = torch.zeros(*src_shape, dtype=torch.float32)
+    image = torch.zeros(patches[0].shape[:-2] + src_shape, device=device, dtype=torch.float32)
+    density = torch.zeros(*src_shape, device=device, dtype=torch.float32)
     coords = _get_patch_coords(src_shape, patch_size, offset, overlap)
     for i, coord in enumerate(coords):
         y, x = coord

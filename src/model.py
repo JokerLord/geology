@@ -14,6 +14,7 @@ from metrics import iou_per_class, accuracy
 import random
 from sklearn.model_selection import train_test_split
 from typing import Callable
+from tqdm.auto import tqdm
 
 
 class Trainer:
@@ -44,8 +45,7 @@ class Trainer:
         return train_dataloader, val_dataloader
 
 
-    def _train_image(self, batch: tuple[Tensor, Tensor]) -> dict[str, float]:
-        inputs, target = batch # (1, 3, H, W), (1, H, W)
+    def _train_image(self, inputs: Tensor, target: Tensor) -> dict[str, float]:
         inputs, target = torch.squeeze(inputs), torch.squeeze(target) # (3, H, W), (H, W)
 
         inputs_patches = split_into_patches(
@@ -83,8 +83,7 @@ class Trainer:
         return {"train_loss": avg_loss}
 
     
-    def _validate_image(self, batch: tuple[Tensor, Tensor]) -> dict:
-        inputs, target = batch # (1, 3, H, W), (1, H, W)
+    def _validate_image(self, inputs: Tensor, target: Tensor) -> dict:
         inputs, target = torch.squeeze(inputs), torch.squeeze(target) # (3, H, W), (H, W)
 
         inputs_patches = split_into_patches(
@@ -107,16 +106,17 @@ class Trainer:
                 inputs_batch = torch.stack(inputs_patches[i : i + BATCH_SIZE]).to(
                     device=self.device, dtype=torch.float32
                 ) # (batch_size, 3, patch_size, patch_size) in GPU memory
-                logits_batch = self.model(inputs_batch).cpu()  # (batch_size, n_classes, patch_size, patch_size) in CPU memory
+                logits_batch = self.model(inputs_batch)  # (batch_size, n_classes, patch_size, patch_size) in GPU memory
                 target_batch = torch.stack(target_patches[i: i + BATCH_SIZE]).to(
-                    dtype=torch.int64
-                ) # (batch_size, patch_size, patch_size)
+                    device=self.device, dtype=torch.int64
+                ) # (batch_size, patch_size, patch_size) in GPU memory
 
                 loss = self.criterion(logits_batch, target_batch)
                 losses.append(loss.item())
 
                 for logits_patch in logits_batch:
                     logits_patches.append(logits_patch)
+
         output_dict = {"val_loss": sum(losses) / len(losses)}
 
         logits_patches = logits_patches[:init_n_patches]
@@ -126,7 +126,9 @@ class Trainer:
             offset=OFFSET,
             overlap=PATCH_OVERLAP,
             src_shape=inputs.shape[-2:],
-        ) # (n_classes, H, W) in CPU memory
+            device=self.device
+        ) # (n_classes, H, W) in GPU memory
+        target = target.to(device=self.device, dtype=torch.float32)
     
         """ Prepare for metrics calculation """
         if OFFSET > 0:
@@ -159,10 +161,12 @@ class Trainer:
 
             self.model.train()
             train_outputs = []
-            for batch in train_dataloader:
-                train_outputs.append(self._train_image(batch))
+            for inputs, target in train_dataloader:
+                train_outputs.append(self._train_image(inputs, target))
 
             self.model.eval()
             val_outputs = []
-            for batch in val_dataloader:
-                val_outputs.append(self._validate_image(batch))
+            bar = tqdm(val_dataloader, postfix={"val_loss": 0.0, "mean_iou": 0.0})
+            for inputs, target in bar:
+                val_outputs.append(self._validate_image(inputs, target))
+                bar.set_postfix(ordered_dict={"val_loss": val_outputs[-1]["val_loss"], "mean_iou": val_outputs[-1]["mean_iou_pred"]})
