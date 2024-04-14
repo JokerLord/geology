@@ -12,13 +12,20 @@ from config import *
 
 def train(gpu_index: int):
     model = ResUNet(len(CLASS_NAMES), 3, N_FILTERS, True)
-
+    optimizer = torch.optim.Adam(model.parameters(), lr=LR)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer,
+        mode="min",
+        factor=0.1,
+        patience=4
+    )
     trainer = Trainer(
         model=model,
         criterion=torch.nn.CrossEntropyLoss(),
-        optimizer=torch.optim.Adam(model.parameters(), lr=LR),
+        optimizer=optimizer,
+        scheduler=scheduler,
         device=torch.device(f"cuda:{gpu_index}"),
-        max_epochs=1,
+        max_epochs=50,
     )
 
     trainer.fit()

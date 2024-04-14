@@ -18,10 +18,11 @@ from tqdm.auto import tqdm
 
 
 class Trainer:
-    def __init__(self, model, criterion, optimizer, device, max_epochs) -> None:
+    def __init__(self, model, criterion, optimizer, scheduler, device, max_epochs) -> None:
         self.model = model
         self.criterion = criterion
         self.optimizer = optimizer
+        self.scheduler = scheduler
         self.device = device
         self.max_epochs = max_epochs
 
@@ -172,7 +173,10 @@ class Trainer:
                                    Validation loss: {avg_val_loss:.3f}
                                    Mean IoU (prediction): {avg_mean_iou_pred:.3f}
                                    Accuracy: {avg_accuracy:.3f}""")
-        
+
+        """ Reduce lr on plateua """
+        self.scheduler.step(avg_val_loss)
+
 
     def fit(self):
         self.model.to(self.device)
