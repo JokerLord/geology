@@ -8,7 +8,7 @@ from res_unet import ResUNet
 from dataset import LumenStoneDataset
 from model import Trainer
 from config import *
-from utils import present_class_codes
+from utils import present_class_codes, prepare_experiment
 
 
 def train(gpu_index: int):
@@ -20,13 +20,16 @@ def train(gpu_index: int):
         factor=0.1,
         patience=4
     )
+    exp_path = prepare_experiment(Path("output"))
+
     trainer = Trainer(
         model=model,
         criterion=torch.nn.CrossEntropyLoss(),
         optimizer=optimizer,
         scheduler=scheduler,
         device=torch.device(f"cuda:{gpu_index}"),
-        max_epochs=50,
+        max_epochs=25,
+        exp_path=exp_path
     )
 
     trainer.fit()

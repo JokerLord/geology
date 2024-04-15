@@ -23,6 +23,22 @@ CLASS_NAMES = [
     "Kvl",
 ]
 
+CLASS_COLORS = [
+    '#000000',
+    '#ff0000',
+    '#cbff00',
+    '#00ff66',
+    '#0065ff',
+    '#cc00ff',
+    '#ff4c4c',
+    '#dbff4c',
+    '#4cff93',
+    '#4c93ff',
+    '#db4cff',
+    '#ff9999',
+    '#eaff99',
+]
+
 MISSED_CLASS_CODES = [3, 5, 7, 9, 10, 12]
 
 TRAIN_TRANSFORM = A.Compose([ToTensorV2(transpose_mask=True)])
@@ -36,6 +52,6 @@ PATCH_OVERLAP = 0.5
 OFFSET = 8
 
 BATCH_SIZE = 16
-SPLIT_RATIO = 0.85
+SPLIT_RATIO = 0.8
 
 LR = 1e-4

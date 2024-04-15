@@ -12,19 +12,24 @@ from config import *
 from metrics import iou_per_class, accuracy
 
 import random
+import copy
 from sklearn.model_selection import train_test_split
 from typing import Callable
 from tqdm.auto import tqdm
+from collections import defaultdict
 
 
 class Trainer:
-    def __init__(self, model, criterion, optimizer, scheduler, device, max_epochs) -> None:
+    def __init__(
+        self, model, criterion, optimizer, scheduler, device, max_epochs, exp_path
+    ) -> None:
         self.model = model
         self.criterion = criterion
         self.optimizer = optimizer
         self.scheduler = scheduler
         self.device = device
         self.max_epochs = max_epochs
+        self.exp_path = exp_path
 
         self._train_dataset = LumenStoneDataset(
             root_dir=LUMENSTONE_PATH, train=True, transform=TRAIN_TRANSFORM
@@ -32,6 +37,9 @@ class Trainer:
         self._val_dataset = LumenStoneDataset(
             root_dir=LUMENSTONE_PATH, train=True, transform=VAL_TRANSFORM
         )
+
+        self.best_model = None
+        self.best_avg_val_loss = 5.0 # TODO
 
 
     def _split_dataset(self) -> tuple[DataLoader, DataLoader]:
@@ -138,47 +146,75 @@ class Trainer:
 
         """ Metrics for output activation """
         activated = F.softmax(input=logits_cropped, dim=1) # (n_classes, H, W)
-        iou_activated_per_class = iou_per_class(target, activated)
+        iou_activated_per_class = iou_per_class(target_cropped, activated)
         output_dict["iou_activated_per_class"] = iou_activated_per_class
 
         """ Metrics for prediction """
         prediction_mask = torch.argmax(activated, dim=0) # (H, W)
         prediction = one_hot(prediction_mask, n_classes=activated.shape[0])
-        iou_pred_per_class = iou_per_class(target, prediction)
+        iou_pred_per_class = iou_per_class(target_cropped, prediction)
         output_dict["iou_pred_per_class"] = iou_pred_per_class
 
         output_dict["mean_iou_activated"] = mean_iou(iou_activated_per_class)
         output_dict["mean_iou_pred"] = mean_iou(iou_pred_per_class)
 
-        output_dict["accuracy"] = accuracy(target, prediction)
+        output_dict["accuracy"] = accuracy(target_cropped, prediction)
         return output_dict
 
 
-    def _epoch_end(self, epoch: int, train_outputs: list[dict], val_outputs: list[dict]) -> None:
+    def _epoch_end(
+        self,
+        epoch: int,
+        train_outputs: list[dict[str, float]],
+        val_outputs: list[dict[str, float]]
+    ) -> dict[str, float]:
         train_losses = [x["train_loss"] for x in train_outputs]
         avg_train_loss = sum(train_losses) / len(train_losses)
 
         val_losses = [x["val_loss"] for x in val_outputs]
         avg_val_loss = sum(val_losses) / len(val_losses)
 
-        mean_ious_pred = [x["mean_iou_pred"] for x in val_outputs]
-        avg_mean_iou_pred = sum(mean_ious_pred) / len(mean_ious_pred)
+        # mean_ious_pred = [x["mean_iou_pred"] for x in val_outputs]
+        # avg_mean_iou_pred = sum(mean_ious_pred) / len(mean_ious_pred)
 
-        accuracies = [x["accuracy"] for x in val_outputs]
-        avg_accuracy = sum(accuracies) / len(accuracies)
+        # mean_ious_activated = [x["mean_iou_activated"] for x in val_outputs]
+        # avg_mean_iou_activated = sum(mean_ious_activated) / len(mean_ious_activated)
 
-        """ Print training/validation statistics """
-        print(f"""[Epoch: {epoch}] Training loss: {avg_train_loss:.3f}
-                                   Validation loss: {avg_val_loss:.3f}
-                                   Mean IoU (prediction): {avg_mean_iou_pred:.3f}
-                                   Accuracy: {avg_accuracy:.3f}""")
+        # accuracies = [x["accuracy"] for x in val_outputs]
+        # avg_accuracy = sum(accuracies) / len(accuracies)
+
+        # avg_iou_activated_per_class = dict()
+        # avg_iou_pred_per_class = dict()
+        # for code in range(len(present_class_codes)):
+        #     class_name = squeezed_codes2labels[code]
+
+        #     ious_activated = [x["iou_activated_per_class"][class_name] for x in val_outputs]
+        #     avg_iou_activated_per_class[class_name] = sum(ious_activated) / len(ious_activated)
+
+        #     ious_pred = [x["iou_pred_per_class"][class_name] for x in val_outputs]
+        #     avg_iou_pred_per_class[class_name] = sum(ious_pred) / len(ious_pred)
+
+        """ Print training/validation losses """
+        print(f"[Epoch: {epoch}] Training loss: {avg_train_loss:.3f} Validation loss: {avg_val_loss:.3f}")
 
         """ Reduce lr on plateua """
         self.scheduler.step(avg_val_loss)
 
+        """ Save best model """
+        if avg_val_loss < self.best_avg_val_loss:
+            self.best_avg_val_loss = avg_val_loss
+            self.best_model = copy.deepcopy(self.model)
+
+        return {
+            "avg_train_loss": avg_train_loss,
+            "avg_val_loss": avg_val_loss,
+            "lr": self.scheduler.get_last_lr()
+        }
+
 
     def fit(self):
         self.model.to(self.device)
+        epoch_outputs = []
         for epoch in range(self.max_epochs):
             train_dataloader, val_dataloader = self._split_dataset()
 
@@ -191,14 +227,12 @@ class Trainer:
 
             self.model.eval()
             val_outputs = []
-            bar = tqdm(val_dataloader, postfix={"val_loss": 0.0, "mean_iou_pred": 0.0, "accuracy": 0.0})
+            bar = tqdm(val_dataloader, postfix={"val_loss": 0.0})
             for inputs, target in bar:
                 val_outputs.append(self._validate_image(inputs, target))
-                bar.set_postfix(ordered_dict={
-                    "val_loss": val_outputs[-1]["val_loss"],
-                    "mean_iou_pred": val_outputs[-1]["mean_iou_pred"],
-                    "accuracy": val_outputs[-1]["accuracy"],
-                })
+                bar.set_postfix(ordered_dict={"val_loss": val_outputs[-1]["val_loss"]})
 
-            self._epoch_end(epoch, train_outputs, val_outputs)
-        torch.save(self.model.state_dict(), Path.cwd() / "tmp" / "tmp1.pth")
+            epoch_outputs.append(self._epoch_end(epoch, train_outputs, val_outputs))
+
+        save_training_outputs(epoch_outputs, self.exp_path)
+        torch.save(self.best_model.state_dict(), Path.cwd() / self.exp_path / "best_model.pth")

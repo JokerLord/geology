@@ -1,6 +1,7 @@
 import numpy as np
 import math
 import torch
+import matplotlib.pyplot as plt
 
 from typing import Union
 from torch import Tensor
@@ -11,6 +12,7 @@ from config import *
 present_class_codes = [code for code in range(len(CLASS_NAMES)) if code not in MISSED_CLASS_CODES]
 codes2squeezed_codes = {code: i for i, code in enumerate(present_class_codes)}
 squeezed_codes2labels = {i: CLASS_NAMES[code] for i, code in enumerate(present_class_codes)}
+labels2colors = {class_name: CLASS_COLORS[i] for i, class_name in enumerate(CLASS_NAMES)}
 
 
 def _get_patch_coords(
@@ -178,3 +180,67 @@ def preprocess_mask(mask: Tensor) -> Tensor:
         squeezed_mask[mask == code] = squeezed_code
     
     return one_hot(squeezed_mask, len(present_class_codes))
+
+
+def plot_single_class_data(data: list, data_name: str, exp_path: Path):
+    n_epochs = len(data)
+    fig = plt.figure(figsize=(12, 6))
+    
+    x = [x + 1 for x in range(n_epochs)]
+    y = [data[i] for i in range(n_epochs)]
+    plt.plot(x, y)
+
+    plt.ylabel(f"{data_name}", fontsize=20)
+    plt.xlabel("epoch", fontsize=20)
+    fig.savefig(exp_path / f"{data_name}.png")
+
+
+def plot_multi_class_data(data: dict[str, list[float]], data_name: str, exp_path: Path):
+    n_epochs = len(list(data.values())[0])
+    fig = plt.figure(figsize=(12, 6))
+
+    for class_name, values in data.items():
+        x = [x + 1 for x in range(n_epochs)]
+        y = [values[i] for i in range(n_epochs)]
+        plt.plot(x, y, color=labels2colors[class_name])
+
+    plt.ylabel(f"{data_name}", fontsize=20)
+    plt.xlabel("epoch", fontsize=20)    
+    plt.legend([class_name for class_name in data], loc="center right", fontsize=15)
+    fig.savefig(exp_path / f"{data_name}.png")
+
+
+# def metrics_to_str(write_data: dict[str, Union[float, str]], description: str) -> str:
+#     iou_class_names_activated = "".join(f"\t\t {class_name}: {}\n" for class_name, iou in dict["iou_activated_per_class"])
+
+
+def save_training_outputs(epoch_outputs: list[dict], exp_path: Path) -> None:
+    """
+    Creates plots and metrics output into exp_path folder
+
+    Arguments:
+        epoch_outputs (list[dict]): List of dictionaries with epoch average metrics over val_dataloader 
+    """
+    # description = "val"
+    # output_path = self.exp_path / description
+    # output_path.mkdir(exist_ok=True, parents=True)
+
+    # log_file = open(output_path / "metrics.txt", "a+")
+    # data = {} # dict[str, list[float]]
+    # avg_data = {} # dict[str, float]
+    # for key in epoch_outputs[0].keys():
+    #     if key in ["iou_activated_per_class", "iou_pred_per_class"]:
+    #         data[key] = {class_name: [x[key][class_name] for x in epoch_outputs] for class_name in epoch_outputs[0][key].keys()}
+    #         plot_multi_class_data(data[key], key, exp_path)
+    #     else:
+    #         data[key] = [x[key] for x in epoch_outputs]
+    #         plot_single_class_data(data[key], key, exp_path)
+
+    # """ Write metrics by epoch """
+    # for epoch in range(len(epoch_outputs)):
+    #     write_data = epoch_outputs[epoch]
+        
+    data = {} # dict[str, list[float]]
+    for key in epoch_outputs[0].keys():
+        data[key] = [x[key] for x in epoch_outputs]
+        plot_single_class_data(data[key], key, exp_path)
