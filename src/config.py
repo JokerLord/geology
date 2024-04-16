@@ -41,6 +41,11 @@ CLASS_COLORS = [
 
 MISSED_CLASS_CODES = [3, 5, 7, 9, 10, 12]
 
+present_class_codes = [code for code in range(len(CLASS_NAMES)) if code not in MISSED_CLASS_CODES]
+codes2squeezed_codes = {code: i for i, code in enumerate(present_class_codes)}
+squeezed_codes2labels = {i: CLASS_NAMES[code] for i, code in enumerate(present_class_codes)}
+labels2colors = {class_name: CLASS_COLORS[i] for i, class_name in enumerate(CLASS_NAMES)}
+
 TRAIN_TRANSFORM = A.Compose([ToTensorV2(transpose_mask=True)])
 
 VAL_TRANSFORM = A.Compose([ToTensorV2(transpose_mask=True)])

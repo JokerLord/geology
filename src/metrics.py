@@ -2,7 +2,11 @@ import torch
 
 from torch import Tensor
 from config import *
-from utils import squeezed_codes2labels, exIoU, exAcc
+from collections import namedtuple
+
+
+exIoU = namedtuple("IoU", ["iou", "intersection", "union"])
+exAcc = namedtuple("Accuracy", ["accuracy", "correct", "total"])
 
 
 def iou(y_true: Tensor, y_pred: Tensor, smooth: float = 1.0) -> exIoU:
