@@ -46,6 +46,24 @@ def iou_per_class(
     return iou_dict
 
 
+def mean_iou(iou_per_class: dict[str, exIoU], weights=None) -> float:
+        """
+        Calculates average IoU metric over all classes
+
+        Arguments:
+            iou_per_class (dict[str, exIoU]): Dictionary of extended IoU metrics for each class
+            weights (list, Optional): List of weights for each class. Default: None
+        Returns:
+            mean_iou (float): Weighted mean IoU metric over classes
+        """
+
+        if weights is None:
+            return sum(iou.iou for iou in iou_per_class.values()) / len(iou_per_class)
+        else:
+            """ Not implemented yet """
+            pass
+
+
 def joint_iou(ious: list[exIoU], smooth: float = 1.0) -> exIoU:
     intersection = sum(i.intersection for i in ious)
     union = sum(i.union for i in ious)

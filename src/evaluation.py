@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from metrics import exIoU, exAcc, joint_iou, joint_accuracy
+from metrics import exIoU, exAcc, joint_iou, joint_accuracy, mean_iou
 from config import squeezed_codes2labels
 
 
@@ -10,31 +10,13 @@ class EvaluationResult:
     iou_pred_per_class: dict[str, exIoU]
     accuracy: exAcc
 
-
-    def _mean_iou(self, iou_per_class: dict[str, exIoU], weights=None) -> float:
-        """
-        Calculates average IoU metric over all classes
-
-        Arguments:
-            iou_per_class (dict[str, exIoU]): Dictionary of extended IoU metrics for each class
-            weights (list, Optional): List of weights for each class. Default: None
-        Returns:
-            mean_iou (float): Weighted mean IoU metric over classes
-        """
-
-        if weights is None:
-            return sum(iou.iou for iou in iou_per_class.values()) / len(iou_per_class)
-        else:
-            """ Not implemented yet """
-            pass
-
     def to_str(self, description: str):
         iou_activated = "".join(f"\t\t {class_name}: {iou.iou:.4f}\n" for class_name, iou in self.iou_activated_per_class.items())
         iou_pred = "".join(f"\t\t {class_name}: {iou.iou:.4f}\n" for class_name, iou in self.iou_pred_per_class.items())
         res_str = (
             f"Evaluation result ({description}):\n"
-            f"\tmean IoU (activated): {self._mean_iou(self.iou_activated_per_class):.4f}\n"
-            f"\tmean IoU (prediction): {self._mean_iou(self.iou_pred_per_class):.4f}\n"
+            f"\tmean IoU (activated): {mean_iou(self.iou_activated_per_class):.4f}\n"
+            f"\tmean IoU (prediction): {mean_iou(self.iou_pred_per_class):.4f}\n"
             f"\taccuracy: {self.accuracy.accuracy:.4f}\n"
             f"\tIoU (activated) per class:\n"
             f"{iou_activated}"
