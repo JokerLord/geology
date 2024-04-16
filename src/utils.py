@@ -1,7 +1,6 @@
 import numpy as np
 import math
 import torch
-import matplotlib.pyplot as plt
 
 from typing import Union
 from torch import Tensor
@@ -157,34 +156,6 @@ def preprocess_mask(mask: Tensor) -> Tensor:
         squeezed_mask[mask == code] = squeezed_code
     
     return one_hot(squeezed_mask, len(present_class_codes))
-
-
-# def plot_single_class_data(data: list, data_name: str, exp_path: Path):
-#     n_epochs = len(data)
-#     fig = plt.figure(figsize=(12, 6))
-    
-#     x = [x + 1 for x in range(n_epochs)]
-#     y = [data[i] for i in range(n_epochs)]
-#     plt.plot(x, y)
-
-#     plt.ylabel(f"{data_name}", fontsize=20)
-#     plt.xlabel("epoch", fontsize=20)
-#     fig.savefig(exp_path / f"{data_name}.png")
-
-
-# def plot_multi_class_data(data: dict[str, list[float]], data_name: str, exp_path: Path):
-#     n_epochs = len(list(data.values())[0])
-#     fig = plt.figure(figsize=(12, 6))
-
-#     for class_name, values in data.items():
-#         x = [x + 1 for x in range(n_epochs)]
-#         y = [values[i] for i in range(n_epochs)]
-#         plt.plot(x, y, color=labels2colors[class_name])
-
-#     plt.ylabel(f"{data_name}", fontsize=20)
-#     plt.xlabel("epoch", fontsize=20)    
-#     plt.legend([class_name for class_name in data], loc="center right", fontsize=15)
-#     fig.savefig(exp_path / f"{data_name}.png")
 
 
 def write_metrics(file: object, eval_res: EvaluationResult, description: str) -> None:

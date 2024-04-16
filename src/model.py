@@ -10,7 +10,7 @@ from dataset import LumenStoneDataset
 from utils import *
 from config import *
 from metrics import iou_per_class, accuracy
-from evaluation import EvaluationResult, evaluate_dataset
+from evaluation import EvaluationResult, evaluate_dataset, show_evaluation_over_epoch
 
 import random
 import copy
@@ -194,7 +194,7 @@ class Trainer:
 
     def fit(self):
         self.model.to(self.device)
-        epoch_outputs = []
+        epoch_eval_results = []
         for epoch in range(self.max_epochs):
             train_dataloader, val_dataloader = self._split_dataset()
 
@@ -214,8 +214,10 @@ class Trainer:
                 bar.set_postfix(ordered_dict={"val_loss": val_loss})
 
             self._epoch_end(epoch, train_losses, val_losses)
+            epoch_eval_results.append(self.test(f"epoch {epoch + 1}"))
+        
 
-        # save_training_outputs(epoch_outputs, self.exp_path)
+        show_evaluation_over_epoch(epoch_eval_results, self.exp_path)
         torch.save(self.best_model.state_dict(), Path.cwd() / self.exp_path / "best_model.pth")
 
 
@@ -236,3 +238,4 @@ class Trainer:
             
         total_eval_res = evaluate_dataset(eval_results)
         write_metrics(self.log, total_eval_res, description=f"{description}, total")
+        return total_eval_res
