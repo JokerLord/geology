@@ -173,7 +173,6 @@ def preprocess_mask(mask: Tensor) -> Tensor:
 
     Arguments:
         mask (Tensor): Input mask of size (H, W)
-
     Returns:
         target (Tensor): One hot encoded mask of shape (n_classes, H, W)
     """
@@ -253,7 +252,7 @@ def metrics_to_str(data: dict[str, Union[float, str]], description: str) -> str:
         f"Evaluation result ({description}):\n"
         f"\tmean IoU (activated): {data["mean_iou_activated"]:.4f}\n"
         f"\tmean IoU (prediction): {data["mean_iou_pred"]:.4f}\n"
-        f"\taccuracy: {data["accuracy"]:.4f}\n"
+        f"\taccuracy: {data["accuracy"].accuracy:.4f}\n"
         f"\tIoU (activated) per class:\n"
         f"{iou_activated}"
         f"\tIoU (prediction) per class:\n"

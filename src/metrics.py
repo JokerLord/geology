@@ -52,16 +52,24 @@ def joint_iou(ious: list[exIoU], smooth: float = 1.0) -> exIoU:
     )
 
 
-def accuracy(y_true: Tensor, y_pred: Tensor) -> float:
+def accuracy(y_true: Tensor, y_pred: Tensor) -> exAcc:
     """
     Arguments:
         y_true (Tensor): One hot encoded tensor of size (n_classes, H, W)
         y_pred (Tensor): Prediction tensor of size (n_classes, H, W)
-
     Returns:
-        accuracy (float): Accuracy metric
+        accuracy (exAcc): Extended accuracy metric
     """
     y_true_a = torch.argmax(y_true, dim=0)
     y_pred_a = torch.argmax(y_pred, dim=0)
     correct = torch.sum(y_true_a == y_pred_a)
-    return correct.item() / torch.numel(y_true_a)
+    return exAcc(
+        correct.item() / torch.numel(y_true_a),
+        correct,
+        torch.numel(y_true_a)
+    )
+
+def joint_accuracy(accs: list[exAcc]) -> exAcc:
+    correct = sum(a.correct for a in accs)
+    total = sum(a.total for a in accs)
+    return exAcc(correct / total, correct, total)
