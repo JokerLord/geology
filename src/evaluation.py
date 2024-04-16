@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
-from metrics import exIoU, exAcc
+from metrics import exIoU, exAcc, joint_iou, joint_accuracy
+from config import squeezed_codes2labels
 
 
 @dataclass
@@ -43,16 +44,18 @@ class EvaluationResult:
         return res_str
 
 
-def evaluate_dataset(file: object, eval_results: list[EvaluationResult], description: str) -> None:
-    pass
+def evaluate_dataset(eval_results: list[EvaluationResult]) -> EvaluationResult:
+    total_iou_activated_per_class = dict()
+    total_iou_pred_per_class = dict()
 
-    # avg_iou_activated_per_class = dict()
-    # avg_iou_pred_per_class = dict()
-    # for code in range(len(present_class_codes)):
-    #     class_name = squeezed_codes2labels[code]
+    for class_name in squeezed_codes2labels.values():
+        total_iou_activated_per_class[class_name] = joint_iou([eval_res.iou_activated_per_class[class_name] for eval_res in eval_results])
+        total_iou_pred_per_class[class_name] = joint_iou([eval_res.iou_pred_per_class[class_name] for eval_res in eval_results])
 
-    #     ious_activated = [x["iou_activated_per_class"][class_name] for x in val_outputs]
-    #     avg_iou_activated_per_class[class_name] = sum(ious_activated) / len(ious_activated)
+    total_accuracy = joint_accuracy([eval_res.accuracy for eval_res in eval_results])
 
-    #     ious_pred = [x["iou_pred_per_class"][class_name] for x in val_outputs]
-    #     avg_iou_pred_per_class[class_name] = sum(ious_pred) / len(ious_pred)
+    return EvaluationResult(
+        iou_activated_per_class=total_iou_activated_per_class,
+        iou_pred_per_class=total_iou_pred_per_class,
+        accuracy=total_accuracy
+    )

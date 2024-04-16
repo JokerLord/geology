@@ -234,4 +234,5 @@ class Trainer:
             eval_results.append(eval_res)
             write_metrics(self.log_detailed, eval_results[-1], description=f"{description}, image {len(eval_results)}")
             
-        evaluate_dataset(self.log, eval_results, description)
+        total_eval_res = evaluate_dataset(eval_results)
+        write_metrics(self.log, total_eval_res, description=f"{description}, total")
