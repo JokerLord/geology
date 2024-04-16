@@ -8,6 +8,8 @@ from torch import Tensor
 from pathlib import Path
 
 from config import *
+from metrics import joint_accuracy, joint_iou
+from evaluation import EvaluationResult
 
 
 def _get_patch_coords(
@@ -139,24 +141,6 @@ def prepare_experiment(output_path: Path) -> Path:
     return exp_path
 
 
-def mean_iou(iou_per_class: dict[str, exIoU], weights=None) -> float:
-    """
-    Calculates average IoU metric over all classes
-
-    Arguments:
-        iou_per_class (dict[str, exIoU]): Dictionary of extended IoU metrics for each class
-        weights (list, Optional): List of weights for each class. Default: None
-    Returns:
-        mean_iou (float): Weighted mean IoU metric over classes
-    """
-
-    if weights is None:
-        return sum(iou.iou for iou in iou_per_class.values()) / len(iou_per_class)
-    else:
-        """ Not implemented yet """
-        pass
-
-
 def preprocess_mask(mask: Tensor) -> Tensor:
     """
     Squeeze codes in mask and apply one hot encoding
@@ -175,81 +159,33 @@ def preprocess_mask(mask: Tensor) -> Tensor:
     return one_hot(squeezed_mask, len(present_class_codes))
 
 
-def plot_single_class_data(data: list, data_name: str, exp_path: Path):
-    n_epochs = len(data)
-    fig = plt.figure(figsize=(12, 6))
+# def plot_single_class_data(data: list, data_name: str, exp_path: Path):
+#     n_epochs = len(data)
+#     fig = plt.figure(figsize=(12, 6))
     
-    x = [x + 1 for x in range(n_epochs)]
-    y = [data[i] for i in range(n_epochs)]
-    plt.plot(x, y)
+#     x = [x + 1 for x in range(n_epochs)]
+#     y = [data[i] for i in range(n_epochs)]
+#     plt.plot(x, y)
 
-    plt.ylabel(f"{data_name}", fontsize=20)
-    plt.xlabel("epoch", fontsize=20)
-    fig.savefig(exp_path / f"{data_name}.png")
-
-
-def plot_multi_class_data(data: dict[str, list[float]], data_name: str, exp_path: Path):
-    n_epochs = len(list(data.values())[0])
-    fig = plt.figure(figsize=(12, 6))
-
-    for class_name, values in data.items():
-        x = [x + 1 for x in range(n_epochs)]
-        y = [values[i] for i in range(n_epochs)]
-        plt.plot(x, y, color=labels2colors[class_name])
-
-    plt.ylabel(f"{data_name}", fontsize=20)
-    plt.xlabel("epoch", fontsize=20)    
-    plt.legend([class_name for class_name in data], loc="center right", fontsize=15)
-    fig.savefig(exp_path / f"{data_name}.png")
+#     plt.ylabel(f"{data_name}", fontsize=20)
+#     plt.xlabel("epoch", fontsize=20)
+#     fig.savefig(exp_path / f"{data_name}.png")
 
 
-def save_training_outputs(epoch_outputs: list[dict], exp_path: Path) -> None:
-    """
-    Creates plots and metrics output into exp_path folder
+# def plot_multi_class_data(data: dict[str, list[float]], data_name: str, exp_path: Path):
+#     n_epochs = len(list(data.values())[0])
+#     fig = plt.figure(figsize=(12, 6))
 
-    Arguments:
-        epoch_outputs (list[dict]): List of dictionaries with epoch average metrics over val_dataloader 
-    """
-    # description = "val"
-    # output_path = self.exp_path / description
-    # output_path.mkdir(exist_ok=True, parents=True)
+#     for class_name, values in data.items():
+#         x = [x + 1 for x in range(n_epochs)]
+#         y = [values[i] for i in range(n_epochs)]
+#         plt.plot(x, y, color=labels2colors[class_name])
 
-    # log_file = open(output_path / "metrics.txt", "a+")
-    # data = {} # dict[str, list[float]]
-    # avg_data = {} # dict[str, float]
-    # for key in epoch_outputs[0].keys():
-    #     if key in ["iou_activated_per_class", "iou_pred_per_class"]:
-    #         data[key] = {class_name: [x[key][class_name] for x in epoch_outputs] for class_name in epoch_outputs[0][key].keys()}
-    #         plot_multi_class_data(data[key], key, exp_path)
-    #     else:
-    #         data[key] = [x[key] for x in epoch_outputs]
-    #         plot_single_class_data(data[key], key, exp_path)
-
-    # """ Write metrics by epoch """
-    # for epoch in range(len(epoch_outputs)):
-    #     write_data = epoch_outputs[epoch]
-        
-    data = {} # dict[str, list[float]]
-    for key in epoch_outputs[0].keys():
-        data[key] = [x[key] for x in epoch_outputs]
-        plot_single_class_data(data[key], key, exp_path)
+#     plt.ylabel(f"{data_name}", fontsize=20)
+#     plt.xlabel("epoch", fontsize=20)    
+#     plt.legend([class_name for class_name in data], loc="center right", fontsize=15)
+#     fig.savefig(exp_path / f"{data_name}.png")
 
 
-def metrics_to_str(data: dict[str, Union[float, str]], description: str) -> str:
-    iou_activated = "".join(f"\t\t {class_name}: {iou.iou:.4f}\n" for class_name, iou in data["iou_activated_per_class"].items())
-    iou_pred = "".join(f"\t\t {class_name}: {iou.iou:.4f}\n" for class_name, iou in data["iou_pred_per_class"].items())
-    res_str = (
-        f"Evaluation result ({description}):\n"
-        f"\tmean IoU (activated): {data["mean_iou_activated"]:.4f}\n"
-        f"\tmean IoU (prediction): {data["mean_iou_pred"]:.4f}\n"
-        f"\taccuracy: {data["accuracy"].accuracy:.4f}\n"
-        f"\tIoU (activated) per class:\n"
-        f"{iou_activated}"
-        f"\tIoU (prediction) per class:\n"
-        f"{iou_pred}\n"
-    )
-    return res_str
-
-
-def write_metrics(file: object, data: dict[str, Union[float, dict[str, float]]], description: str) -> None:
-    file.write(metrics_to_str(data, description))
+def write_metrics(file: object, eval_res: EvaluationResult, description: str) -> None:
+    file.write(eval_res.to_str(description))

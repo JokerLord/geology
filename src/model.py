@@ -10,6 +10,7 @@ from dataset import LumenStoneDataset
 from utils import *
 from config import *
 from metrics import iou_per_class, accuracy
+from evaluation import EvaluationResult, evaluate_dataset
 
 import random
 import copy
@@ -60,7 +61,7 @@ class Trainer:
         return train_dataloader, val_dataloader
 
 
-    def _train_image(self, inputs: Tensor, target: Tensor) -> dict[str, float]:
+    def _train_image(self, inputs: Tensor, target: Tensor) -> float:
         inputs, target = torch.squeeze(inputs), torch.squeeze(target) # (3, H, W), (H, W)
 
         inputs_patches = split_into_patches(
@@ -94,11 +95,11 @@ class Trainer:
             loss.backward()
             self.optimizer.step()
             losses.append(loss.item())
-        avg_loss = sum(losses) / len(losses)
-        return {"train_loss": avg_loss}
+        train_loss = sum(losses) / len(losses)
+        return train_loss
 
     
-    def _validate_image(self, inputs: Tensor, target: Tensor) -> dict:
+    def _validate_image(self, inputs: Tensor, target: Tensor) -> tuple[float, EvaluationResult]:
         inputs, target = torch.squeeze(inputs), torch.squeeze(target) # (3, H, W), (n_classes, H, W)
 
         inputs_patches = split_into_patches(
@@ -132,7 +133,7 @@ class Trainer:
                 for logits_patch in logits_batch:
                     logits_patches.append(logits_patch)
 
-        output_dict = {"val_loss": sum(losses) / len(losses)}
+        val_loss = sum(losses) / len(losses)
 
         logits_patches = logits_patches[:init_n_patches]
         logits = combine_from_patches(
@@ -153,52 +154,25 @@ class Trainer:
         """ Metrics for output activation """
         activated = F.softmax(input=logits_cropped, dim=1) # (n_classes, H, W)
         iou_activated_per_class = iou_per_class(target_cropped, activated)
-        output_dict["iou_activated_per_class"] = iou_activated_per_class
 
         """ Metrics for prediction """
         prediction_mask = torch.argmax(activated, dim=0) # (H, W)
         prediction = one_hot(prediction_mask, n_classes=activated.shape[0])
         iou_pred_per_class = iou_per_class(target_cropped, prediction)
-        output_dict["iou_pred_per_class"] = iou_pred_per_class
 
-        output_dict["mean_iou_activated"] = mean_iou(iou_activated_per_class)
-        output_dict["mean_iou_pred"] = mean_iou(iou_pred_per_class)
-
-        output_dict["accuracy"] = accuracy(target_cropped, prediction)
-        return output_dict
+        eval_res = EvaluationResult(
+            iou_activated_per_class=iou_activated_per_class,
+            iou_pred_per_class=iou_pred_per_class,
+            accuracy = accuracy(target_cropped, prediction)
+        )
+        return val_loss, eval_res
 
 
     def _epoch_end(
-        self,
-        epoch: int,
-        train_outputs: list[dict[str, float]],
-        val_outputs: list[dict[str, float]]
+        self, epoch: int, train_losses: list[float], val_losses: list[float]
     ) -> dict[str, float]:
-        train_losses = [x["train_loss"] for x in train_outputs]
         avg_train_loss = sum(train_losses) / len(train_losses)
-
-        val_losses = [x["val_loss"] for x in val_outputs]
         avg_val_loss = sum(val_losses) / len(val_losses)
-
-        # mean_ious_pred = [x["mean_iou_pred"] for x in val_outputs]
-        # avg_mean_iou_pred = sum(mean_ious_pred) / len(mean_ious_pred)
-
-        # mean_ious_activated = [x["mean_iou_activated"] for x in val_outputs]
-        # avg_mean_iou_activated = sum(mean_ious_activated) / len(mean_ious_activated)
-
-        # accuracies = [x["accuracy"] for x in val_outputs]
-        # avg_accuracy = sum(accuracies) / len(accuracies)
-
-        # avg_iou_activated_per_class = dict()
-        # avg_iou_pred_per_class = dict()
-        # for code in range(len(present_class_codes)):
-        #     class_name = squeezed_codes2labels[code]
-
-        #     ious_activated = [x["iou_activated_per_class"][class_name] for x in val_outputs]
-        #     avg_iou_activated_per_class[class_name] = sum(ious_activated) / len(ious_activated)
-
-        #     ious_pred = [x["iou_pred_per_class"][class_name] for x in val_outputs]
-        #     avg_iou_pred_per_class[class_name] = sum(ious_pred) / len(ious_pred)
 
         """ Print training/validation losses """
         print(f"[Epoch: {epoch}] Training loss: {avg_train_loss:.3f} Validation loss: {avg_val_loss:.3f}")
@@ -225,22 +199,23 @@ class Trainer:
             train_dataloader, val_dataloader = self._split_dataset()
 
             self.model.train()
-            train_outputs = []
+            train_losses = []
             bar = tqdm(train_dataloader, postfix={"train_loss": 0.0})
             for inputs, target in bar:
-                train_outputs.append(self._train_image(inputs, target))
-                bar.set_postfix(ordered_dict={"train_loss": train_outputs[-1]["train_loss"]})
+                train_losses.append(self._train_image(inputs, target))
+                bar.set_postfix(ordered_dict={"train_loss": train_outputs[-1]})
 
             self.model.eval()
-            val_outputs = []
+            val_losses = []
             bar = tqdm(val_dataloader, postfix={"val_loss": 0.0})
             for inputs, target in bar:
-                val_outputs.append(self._validate_image(inputs, target))
-                bar.set_postfix(ordered_dict={"val_loss": val_outputs[-1]["val_loss"]})
+                val_loss, _ = self._validate_image(inputs, target)
+                val_losses.append(val_loss)
+                bar.set_postfix(ordered_dict={"val_loss": val_loss})
 
-            epoch_outputs.append(self._epoch_end(epoch, train_outputs, val_outputs))
+            self._epoch_end(epoch, train_losses, val_losses)
 
-        save_training_outputs(epoch_outputs, self.exp_path)
+        # save_training_outputs(epoch_outputs, self.exp_path)
         torch.save(self.best_model.state_dict(), Path.cwd() / self.exp_path / "best_model.pth")
 
 
@@ -252,9 +227,11 @@ class Trainer:
         test_dataloader = DataLoader(self._test_dataset, batch_size=1, num_workers=4)
         
         self.model.eval()
-        test_outputs = []
+        eval_results= []
         bar = tqdm(test_dataloader)
         for inputs, target in bar:
-            test_outputs.append(self._validate_image(inputs, target))
-            write_metrics(self.log_detailed, test_outputs[-1], description=f"{description}, image {len(test_outputs)}")
+            _, eval_res = self._validate_image(inputs, target)
+            eval_results.append(eval_res)
+            write_metrics(self.log_detailed, eval_results[-1], description=f"{description}, image {len(eval_results)}")
             
+        evaluate_dataset(self.log, eval_results, description)
