@@ -87,7 +87,7 @@ def accuracy(y_true: Tensor, y_pred: Tensor) -> exAcc:
     correct = torch.sum(y_true_a == y_pred_a)
     return exAcc(
         correct.item() / torch.numel(y_true_a),
-        correct,
+        correct.item(),
         torch.numel(y_true_a)
     )
 

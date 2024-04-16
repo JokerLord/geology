@@ -175,7 +175,7 @@ class Trainer:
         avg_val_loss = sum(val_losses) / len(val_losses)
 
         """ Print training/validation losses """
-        print(f"[Epoch: {epoch}] Training loss: {avg_train_loss:.3f} Validation loss: {avg_val_loss:.3f}")
+        print(f"[Epoch: {epoch + 1}] Training loss: {avg_train_loss:.3f} Validation loss: {avg_val_loss:.3f}")
 
         """ Reduce lr on plateua """
         self.scheduler.step(avg_val_loss)
@@ -203,7 +203,7 @@ class Trainer:
             bar = tqdm(train_dataloader, postfix={"train_loss": 0.0})
             for inputs, target in bar:
                 train_losses.append(self._train_image(inputs, target))
-                bar.set_postfix(ordered_dict={"train_loss": train_outputs[-1]})
+                bar.set_postfix(ordered_dict={"train_loss": train_losses[-1]})
 
             self.model.eval()
             val_losses = []
