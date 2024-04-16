@@ -6,8 +6,13 @@ import matplotlib.pyplot as plt
 from typing import Union
 from torch import Tensor
 from pathlib import Path
-from config import *
 
+from config import *
+from collections import namedtuple
+
+
+exIoU = namedtuple("IoU", ["iou", "intersection", "union"])
+exAcc = namedtuple("Accuracy", ["accuracy", "correct", "total"])
 
 present_class_codes = [code for code in range(len(CLASS_NAMES)) if code not in MISSED_CLASS_CODES]
 codes2squeezed_codes = {code: i for i, code in enumerate(present_class_codes)}
@@ -144,20 +149,19 @@ def prepare_experiment(output_path: Path) -> Path:
     return exp_path
 
 
-def mean_iou(iou_per_class: dict[str, float], weights=None) -> float:
+def mean_iou(iou_per_class: dict[str, exIoU], weights=None) -> float:
     """
     Calculates average IoU metric over all classes
 
     Arguments:
-        iou_per_class (dict[str, float]): Dictionary of IoU metrics for each class
+        iou_per_class (dict[str, exIoU]): Dictionary of extended IoU metrics for each class
         weights (list, Optional): List of weights for each class. Default: None
-    
     Returns:
-        mean_iou (float): Weighted mean iou
+        mean_iou (float): Weighted mean IoU metric over classes
     """
 
     if weights is None:
-        return sum(iou for iou in iou_per_class.values()) / len(iou_per_class)
+        return sum(iou.iou for iou in iou_per_class.values()) / len(iou_per_class)
     else:
         """ Not implemented yet """
         pass
@@ -243,8 +247,8 @@ def save_training_outputs(epoch_outputs: list[dict], exp_path: Path) -> None:
 
 
 def metrics_to_str(data: dict[str, Union[float, str]], description: str) -> str:
-    iou_activated = "".join(f"\t\t {class_name}: {iou:.4f}\n" for class_name, iou in data["iou_activated_per_class"].items())
-    iou_pred = "".join(f"\t\t {class_name}: {iou:.4f}\n" for class_name, iou in data["iou_pred_per_class"].items())
+    iou_activated = "".join(f"\t\t {class_name}: {iou.iou:.4f}\n" for class_name, iou in data["iou_activated_per_class"].items())
+    iou_pred = "".join(f"\t\t {class_name}: {iou.iou:.4f}\n" for class_name, iou in data["iou_pred_per_class"].items())
     res_str = (
         f"Evaluation result ({description}):\n"
         f"\tmean IoU (activated): {data["mean_iou_activated"]:.4f}\n"

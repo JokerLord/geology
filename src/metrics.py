@@ -2,40 +2,54 @@ import torch
 
 from torch import Tensor
 from config import *
-from utils import squeezed_codes2labels
+from utils import squeezed_codes2labels, exIoU, exAcc
 
 
-def iou(y_true: Tensor, y_pred: Tensor, smooth: float = 1.0) -> float:
+def iou(y_true: Tensor, y_pred: Tensor, smooth: float = 1.0) -> exIoU:
     """
     Arguments:
         y_true (Tensor): Ground truth tensor of size (H, W)
         y_pred (Tensor): Prediction tensor of size (H, W)
         smooth (float, Optional): Smooth coefficient. Default: 1.0
-
     Returns:
-        iou (float): Calculated IoU metric
+        res (exIoU): Calculated extended IoU metric
     """
     y_true_f = torch.flatten(y_true)
     y_pred_f = torch.flatten(y_pred)
     intersection = torch.sum(y_true_f * y_pred_f)
     union = torch.sum(y_true_f) + torch.sum(y_pred_f) - intersection
-    return (intersection + smooth).item() / (union + smooth).item()
+    return exIoU(
+        (intersection + smooth).item() / (union + smooth).item(),
+        intersection.item(),
+        union.item()
+    )
 
 
-def iou_per_class(y_true: Tensor, y_pred: Tensor, smooth: float = 1.0) -> dict[str, float]:
+def iou_per_class(
+    y_true: Tensor, y_pred: Tensor, smooth: float = 1.0
+) -> dict[str, exIoU]:
     """
     Arguments:
         y_true (Tensor): One hot encoded tensor of size (n_classes, H, W)
         y_pred (Tensor): Prediction tensor of size (n_classes, H, W)
         smooth (float, Optional): Smooth coefficient. Default: 1.0
-
     Returns:
-        iou_dict (dict[str, float]): Dictionary of IoU metrics for each class
+        iou_dict (dict[str, exIoU]): Dictionary of extended IoU metrics for each class
     """
     iou_dict = {}
     for i in range(y_true.shape[0]):
         iou_dict[squeezed_codes2labels[i]] = iou(y_true[i], y_pred[i], smooth)
     return iou_dict
+
+
+def joint_iou(ious: list[exIoU], smooth: float = 1.0) -> exIoU:
+    intersection = sum(i.intersection for i in ious)
+    union = sum(i.union for i in ious)
+    return exIoU(
+        (intersection + smooth) / (union + smooth),
+        intersection,
+        union
+    )
 
 
 def accuracy(y_true: Tensor, y_pred: Tensor) -> float:
