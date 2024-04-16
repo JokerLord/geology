@@ -28,12 +28,12 @@ def train(gpu_index: int):
         optimizer=optimizer,
         scheduler=scheduler,
         device=torch.device(f"cuda:{gpu_index}"),
-        max_epochs=25,
+        max_epochs=50,
         exp_path=exp_path
     )
 
     trainer.fit()
-
+    trainer.test("test")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

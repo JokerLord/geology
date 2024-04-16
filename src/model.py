@@ -37,9 +37,15 @@ class Trainer:
         self._val_dataset = LumenStoneDataset(
             root_dir=LUMENSTONE_PATH, train=True, transform=VAL_TRANSFORM
         )
+        self._test_dataset = LumenStoneDataset(
+            root_dir=LUMENSTONE_PATH, train=False, transform=VAL_TRANSFORM
+        )
 
         self.best_model = None
         self.best_avg_val_loss = 5.0 # TODO
+
+        self.log = open(self.exp_path / "metrics.txt", "a+")
+        self.log_detailed = open(self.exp_path / "metrics_detailed.txt", "a+")
 
 
     def _split_dataset(self) -> tuple[DataLoader, DataLoader]:
@@ -236,3 +242,19 @@ class Trainer:
 
         save_training_outputs(epoch_outputs, self.exp_path)
         torch.save(self.best_model.state_dict(), Path.cwd() / self.exp_path / "best_model.pth")
+
+
+    def test(self, description):
+        if description == "test":
+            self.model.load_state_dict(torch.load(self.exp_path / "best_model.pth"))
+
+        self.model.to(self.device)
+        test_dataloader = DataLoader(self._test_dataset, batch_size=1, num_workers=4)
+        
+        self.model.eval()
+        test_outputs = []
+        bar = tqdm(test_dataloader)
+        for inputs, target in bar:
+            test_outputs.append(self._validate_image(inputs, target))
+            write_metrics(self.log_detailed, test_outputs[-1], description=f"{description}, image {len(test_outputs)}")
+            

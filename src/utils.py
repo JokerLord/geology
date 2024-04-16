@@ -210,10 +210,6 @@ def plot_multi_class_data(data: dict[str, list[float]], data_name: str, exp_path
     fig.savefig(exp_path / f"{data_name}.png")
 
 
-# def metrics_to_str(write_data: dict[str, Union[float, str]], description: str) -> str:
-#     iou_class_names_activated = "".join(f"\t\t {class_name}: {}\n" for class_name, iou in dict["iou_activated_per_class"])
-
-
 def save_training_outputs(epoch_outputs: list[dict], exp_path: Path) -> None:
     """
     Creates plots and metrics output into exp_path folder
@@ -244,3 +240,23 @@ def save_training_outputs(epoch_outputs: list[dict], exp_path: Path) -> None:
     for key in epoch_outputs[0].keys():
         data[key] = [x[key] for x in epoch_outputs]
         plot_single_class_data(data[key], key, exp_path)
+
+
+def metrics_to_str(data: dict[str, Union[float, str]], description: str) -> str:
+    iou_activated = "".join(f"\t\t {class_name}: {iou:.4f}\n" for class_name, iou in data["iou_activated_per_class"].items())
+    iou_pred = "".join(f"\t\t {class_name}: {iou:.4f}\n" for class_name, iou in data["iou_pred_per_class"].items())
+    res_str = (
+        f"Evaluation result ({description}):\n"
+        f"\tmean IoU (activated): {data["mean_iou_activated"]:.4f}\n"
+        f"\tmean IoU (prediction): {data["mean_iou_pred"]:.4f}\n"
+        f"\taccuracy: {data["accuracy"]:.4f}\n"
+        f"\tIoU (activated) per class:\n"
+        f"{iou_activated}"
+        f"\tIoU (prediction) per class:\n"
+        f"{iou_pred}\n"
+    )
+    return res_str
+
+
+def write_metrics(file: object, data: dict[str, Union[float, dict[str, float]]], description: str) -> None:
+    file.write(metrics_to_str(data, description))
