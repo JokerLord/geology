@@ -1,0 +1,21 @@
+Evaluation result (test, total):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3546
+	accuracy: 0.6521
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0007
+		 Gl: 0.0010
+		 Brt: 0.0006
+		 Py/Mrc: 0.0009
+		 Sph: 0.0009
+		 Tnt/Ttr: 0.0007
+	IoU (prediction) per class:
+		 BG: 0.6615
+		 Ccp: 0.2459
+		 Gl: 0.0538
+		 Brt: 0.1233
+		 Py/Mrc: 0.6736
+		 Sph: 0.4886
+		 Tnt/Ttr: 0.2353
+

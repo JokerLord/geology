@@ -1,0 +1,12 @@
+exp_2:
+    loss - CrossEntropyLoss
+    epochs - 25
+    Нет графиков результатов тестирования по эпохам
+
+exp_4:
+    loss - CrossEntropyLoss
+    epochs - 50
+    patience - 4
+    Нет автоматической балансировки
+    Нет аугментации
+    Нет взвешенной функции потерь

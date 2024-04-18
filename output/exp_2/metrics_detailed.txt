@@ -1,0 +1,2336 @@
+Evaluation result (test, image 1):
+	mean IoU (activated): 0.0013
+	mean IoU (prediction): 0.2763
+	accuracy: 0.6755
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0012
+		 Gl: 0.0003
+		 Brt: 0.0003
+		 Py/Mrc: 0.0051
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0009
+	IoU (prediction) per class:
+		 BG: 0.7167
+		 Ccp: 0.0008
+		 Gl: 0.0000
+		 Brt: 0.0000
+		 Py/Mrc: 0.1532
+		 Sph: 0.6988
+		 Tnt/Ttr: 0.3644
+Evaluation result (test, image 2):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3592
+	accuracy: 0.7544
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0009
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8147
+		 Ccp: 0.2967
+		 Gl: 0.0467
+		 Brt: 0.0000
+		 Py/Mrc: 0.7764
+		 Sph: 0.5680
+		 Tnt/Ttr: 0.0119
+Evaluation result (test, image 3):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3372
+	accuracy: 0.7237
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0009
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8153
+		 Ccp: 0.2775
+		 Gl: 0.0077
+		 Brt: 0.0000
+		 Py/Mrc: 0.7728
+		 Sph: 0.4846
+		 Tnt/Ttr: 0.0028
+Evaluation result (test, image 4):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.7636
+	IoU (activated) per class:
+		 BG: 0.0009
+		 Ccp: 0.0008
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0011
+		 Sph: 0.0012
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8021
+		 Ccp: 0.2749
+		 Gl: 0.0236
+		 Brt: 0.0000
+		 Py/Mrc: 0.7734
+		 Sph: 0.6341
+		 Tnt/Ttr: 0.0079
+Evaluation result (test, image 5):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.2228
+	accuracy: 0.5376
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0007
+		 Sph: 0.0004
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.4509
+		 Ccp: 0.1224
+		 Gl: 0.0378
+		 Brt: 0.0000
+		 Py/Mrc: 0.8076
+		 Sph: 0.1410
+		 Tnt/Ttr: 0.0000
+Evaluation result (test, image 6):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.3253
+	accuracy: 0.6540
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0005
+		 Gl: 0.0013
+		 Brt: 0.0003
+		 Py/Mrc: 0.0024
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0008
+	IoU (prediction) per class:
+		 BG: 0.6233
+		 Ccp: 0.0005
+		 Gl: 0.1877
+		 Brt: 0.0000
+		 Py/Mrc: 0.2385
+		 Sph: 0.8342
+		 Tnt/Ttr: 0.3932
+Evaluation result (test, image 7):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3347
+	accuracy: 0.7257
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0008
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.7452
+		 Ccp: 0.2605
+		 Gl: 0.0002
+		 Brt: 0.0000
+		 Py/Mrc: 0.7229
+		 Sph: 0.5984
+		 Tnt/Ttr: 0.0157
+Evaluation result (test, image 8):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.1592
+	accuracy: 0.3828
+	IoU (activated) per class:
+		 BG: 0.0005
+		 Ccp: 0.0004
+		 Gl: 0.0026
+		 Brt: 0.0003
+		 Py/Mrc: 0.0023
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.3182
+		 Ccp: 0.0007
+		 Gl: 0.1557
+		 Brt: 0.0000
+		 Py/Mrc: 0.4538
+		 Sph: 0.1861
+		 Tnt/Ttr: 0.0000
+Evaluation result (test, image 9):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.6965
+	IoU (activated) per class:
+		 BG: 0.0012
+		 Ccp: 0.0007
+		 Gl: 0.0009
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7839
+		 Ccp: 0.5346
+		 Gl: 0.0297
+		 Brt: 0.0000
+		 Py/Mrc: 0.6616
+		 Sph: 0.5045
+		 Tnt/Ttr: 0.0013
+Evaluation result (test, image 10):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.3407
+	accuracy: 0.7227
+	IoU (activated) per class:
+		 BG: 0.0014
+		 Ccp: 0.0006
+		 Gl: 0.0011
+		 Brt: 0.0008
+		 Py/Mrc: 0.0007
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7381
+		 Ccp: 0.0087
+		 Gl: 0.0507
+		 Brt: 0.3466
+		 Py/Mrc: 0.6827
+		 Sph: 0.5584
+		 Tnt/Ttr: 0.0000
+Evaluation result (test, image 11):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3184
+	accuracy: 0.7517
+	IoU (activated) per class:
+		 BG: 0.0019
+		 Ccp: 0.0010
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6588
+		 Ccp: 0.0746
+		 Gl: 0.0081
+		 Brt: 0.0000
+		 Py/Mrc: 0.8278
+		 Sph: 0.6593
+		 Tnt/Ttr: 0.0000
+Evaluation result (test, image 12):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.2671
+	accuracy: 0.6023
+	IoU (activated) per class:
+		 BG: 0.0007
+		 Ccp: 0.0003
+		 Gl: 0.0003
+		 Brt: 0.0007
+		 Py/Mrc: 0.0014
+		 Sph: 0.0020
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.5678
+		 Ccp: 0.0000
+		 Gl: 0.0000
+		 Brt: 0.3688
+		 Py/Mrc: 0.6943
+		 Sph: 0.2389
+		 Tnt/Ttr: 0.0000
+Evaluation result (test, image 13):
+	mean IoU (activated): 0.0012
+	mean IoU (prediction): 0.3861
+	accuracy: 0.6620
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0010
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0013
+		 Tnt/Ttr: 0.0007
+	IoU (prediction) per class:
+		 BG: 0.5921
+		 Ccp: 0.3059
+		 Gl: 0.1500
+		 Brt: 0.0000
+		 Py/Mrc: 0.8209
+		 Sph: 0.5195
+		 Tnt/Ttr: 0.3141
+Evaluation result (test, image 14):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.2942
+	accuracy: 0.7010
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0007
+		 Brt: 0.0003
+		 Py/Mrc: 0.0008
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8273
+		 Ccp: 0.1915
+		 Gl: 0.0447
+		 Brt: 0.0000
+		 Py/Mrc: 0.7028
+		 Sph: 0.2918
+		 Tnt/Ttr: 0.0014
+Evaluation result (test, image 15):
+	mean IoU (activated): 0.0006
+	mean IoU (prediction): 0.2793
+	accuracy: 0.5527
+	IoU (activated) per class:
+		 BG: 0.0016
+		 Ccp: 0.0005
+		 Gl: 0.0003
+		 Brt: 0.0006
+		 Py/Mrc: 0.0003
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.8057
+		 Ccp: 0.2260
+		 Gl: 0.0000
+		 Brt: 0.2479
+		 Py/Mrc: 0.0000
+		 Sph: 0.6752
+		 Tnt/Ttr: 0.0000
+Evaluation result (test, image 16):
+	mean IoU (activated): 0.0005
+	mean IoU (prediction): 0.1871
+	accuracy: 0.5277
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0007
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0006
+		 Sph: 0.0003
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6212
+		 Ccp: 0.0048
+		 Gl: 0.0089
+		 Brt: 0.0000
+		 Py/Mrc: 0.5558
+		 Sph: 0.1186
+		 Tnt/Ttr: 0.0003
+Evaluation result (test, image 1):
+	mean IoU (activated): 0.0013
+	mean IoU (prediction): 0.2763
+	accuracy: 0.6755
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0012
+		 Gl: 0.0003
+		 Brt: 0.0003
+		 Py/Mrc: 0.0051
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0009
+	IoU (prediction) per class:
+		 BG: 0.7167
+		 Ccp: 0.0008
+		 Gl: 0.0000
+		 Brt: 0.0000
+		 Py/Mrc: 0.1532
+		 Sph: 0.6988
+		 Tnt/Ttr: 0.3644
+
+Evaluation result (test, image 2):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3592
+	accuracy: 0.7544
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0009
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8147
+		 Ccp: 0.2967
+		 Gl: 0.0467
+		 Brt: 0.0000
+		 Py/Mrc: 0.7764
+		 Sph: 0.5680
+		 Tnt/Ttr: 0.0119
+
+Evaluation result (test, image 3):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3372
+	accuracy: 0.7237
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0009
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8153
+		 Ccp: 0.2775
+		 Gl: 0.0077
+		 Brt: 0.0000
+		 Py/Mrc: 0.7728
+		 Sph: 0.4846
+		 Tnt/Ttr: 0.0028
+
+Evaluation result (test, image 4):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.7636
+	IoU (activated) per class:
+		 BG: 0.0009
+		 Ccp: 0.0008
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0011
+		 Sph: 0.0012
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8021
+		 Ccp: 0.2749
+		 Gl: 0.0236
+		 Brt: 0.0000
+		 Py/Mrc: 0.7734
+		 Sph: 0.6341
+		 Tnt/Ttr: 0.0079
+
+Evaluation result (test, image 5):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.2228
+	accuracy: 0.5376
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0007
+		 Sph: 0.0004
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.4509
+		 Ccp: 0.1224
+		 Gl: 0.0378
+		 Brt: 0.0000
+		 Py/Mrc: 0.8076
+		 Sph: 0.1410
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 6):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.3253
+	accuracy: 0.6540
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0005
+		 Gl: 0.0013
+		 Brt: 0.0003
+		 Py/Mrc: 0.0024
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0008
+	IoU (prediction) per class:
+		 BG: 0.6233
+		 Ccp: 0.0005
+		 Gl: 0.1877
+		 Brt: 0.0000
+		 Py/Mrc: 0.2385
+		 Sph: 0.8342
+		 Tnt/Ttr: 0.3932
+
+Evaluation result (test, image 7):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3347
+	accuracy: 0.7257
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0008
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.7452
+		 Ccp: 0.2605
+		 Gl: 0.0002
+		 Brt: 0.0000
+		 Py/Mrc: 0.7229
+		 Sph: 0.5984
+		 Tnt/Ttr: 0.0157
+
+Evaluation result (test, image 8):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.1592
+	accuracy: 0.3828
+	IoU (activated) per class:
+		 BG: 0.0005
+		 Ccp: 0.0004
+		 Gl: 0.0026
+		 Brt: 0.0003
+		 Py/Mrc: 0.0023
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.3182
+		 Ccp: 0.0007
+		 Gl: 0.1557
+		 Brt: 0.0000
+		 Py/Mrc: 0.4538
+		 Sph: 0.1861
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 9):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.6965
+	IoU (activated) per class:
+		 BG: 0.0012
+		 Ccp: 0.0007
+		 Gl: 0.0009
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7839
+		 Ccp: 0.5346
+		 Gl: 0.0297
+		 Brt: 0.0000
+		 Py/Mrc: 0.6616
+		 Sph: 0.5045
+		 Tnt/Ttr: 0.0013
+
+Evaluation result (test, image 10):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.3407
+	accuracy: 0.7227
+	IoU (activated) per class:
+		 BG: 0.0014
+		 Ccp: 0.0006
+		 Gl: 0.0011
+		 Brt: 0.0008
+		 Py/Mrc: 0.0007
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7381
+		 Ccp: 0.0087
+		 Gl: 0.0507
+		 Brt: 0.3466
+		 Py/Mrc: 0.6827
+		 Sph: 0.5584
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 11):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3184
+	accuracy: 0.7517
+	IoU (activated) per class:
+		 BG: 0.0019
+		 Ccp: 0.0010
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6588
+		 Ccp: 0.0746
+		 Gl: 0.0081
+		 Brt: 0.0000
+		 Py/Mrc: 0.8278
+		 Sph: 0.6593
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 12):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.2671
+	accuracy: 0.6023
+	IoU (activated) per class:
+		 BG: 0.0007
+		 Ccp: 0.0003
+		 Gl: 0.0003
+		 Brt: 0.0007
+		 Py/Mrc: 0.0014
+		 Sph: 0.0020
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.5678
+		 Ccp: 0.0000
+		 Gl: 0.0000
+		 Brt: 0.3688
+		 Py/Mrc: 0.6943
+		 Sph: 0.2389
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 13):
+	mean IoU (activated): 0.0012
+	mean IoU (prediction): 0.3861
+	accuracy: 0.6620
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0010
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0013
+		 Tnt/Ttr: 0.0007
+	IoU (prediction) per class:
+		 BG: 0.5921
+		 Ccp: 0.3059
+		 Gl: 0.1500
+		 Brt: 0.0000
+		 Py/Mrc: 0.8209
+		 Sph: 0.5195
+		 Tnt/Ttr: 0.3141
+
+Evaluation result (test, image 14):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.2942
+	accuracy: 0.7010
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0007
+		 Brt: 0.0003
+		 Py/Mrc: 0.0008
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8273
+		 Ccp: 0.1915
+		 Gl: 0.0447
+		 Brt: 0.0000
+		 Py/Mrc: 0.7028
+		 Sph: 0.2918
+		 Tnt/Ttr: 0.0014
+
+Evaluation result (test, image 15):
+	mean IoU (activated): 0.0006
+	mean IoU (prediction): 0.2793
+	accuracy: 0.5527
+	IoU (activated) per class:
+		 BG: 0.0016
+		 Ccp: 0.0005
+		 Gl: 0.0003
+		 Brt: 0.0006
+		 Py/Mrc: 0.0003
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.8057
+		 Ccp: 0.2260
+		 Gl: 0.0000
+		 Brt: 0.2479
+		 Py/Mrc: 0.0000
+		 Sph: 0.6752
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 16):
+	mean IoU (activated): 0.0005
+	mean IoU (prediction): 0.1871
+	accuracy: 0.5277
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0007
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0006
+		 Sph: 0.0003
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6212
+		 Ccp: 0.0048
+		 Gl: 0.0089
+		 Brt: 0.0000
+		 Py/Mrc: 0.5558
+		 Sph: 0.1186
+		 Tnt/Ttr: 0.0003
+
+Evaluation result (test, image 1):
+	mean IoU (activated): 0.0013
+	mean IoU (prediction): 0.2763
+	accuracy: 0.6755
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0012
+		 Gl: 0.0003
+		 Brt: 0.0003
+		 Py/Mrc: 0.0051
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0009
+	IoU (prediction) per class:
+		 BG: 0.7167
+		 Ccp: 0.0008
+		 Gl: 0.0000
+		 Brt: 0.0000
+		 Py/Mrc: 0.1532
+		 Sph: 0.6988
+		 Tnt/Ttr: 0.3644
+
+Evaluation result (test, image 2):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3592
+	accuracy: 0.7544
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0009
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8147
+		 Ccp: 0.2967
+		 Gl: 0.0467
+		 Brt: 0.0000
+		 Py/Mrc: 0.7764
+		 Sph: 0.5680
+		 Tnt/Ttr: 0.0119
+
+Evaluation result (test, image 3):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3372
+	accuracy: 0.7237
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0009
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8153
+		 Ccp: 0.2775
+		 Gl: 0.0077
+		 Brt: 0.0000
+		 Py/Mrc: 0.7728
+		 Sph: 0.4846
+		 Tnt/Ttr: 0.0028
+
+Evaluation result (test, image 4):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.7636
+	IoU (activated) per class:
+		 BG: 0.0009
+		 Ccp: 0.0008
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0011
+		 Sph: 0.0012
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8021
+		 Ccp: 0.2749
+		 Gl: 0.0236
+		 Brt: 0.0000
+		 Py/Mrc: 0.7734
+		 Sph: 0.6341
+		 Tnt/Ttr: 0.0079
+
+Evaluation result (test, image 5):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.2228
+	accuracy: 0.5376
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0007
+		 Sph: 0.0004
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.4509
+		 Ccp: 0.1224
+		 Gl: 0.0378
+		 Brt: 0.0000
+		 Py/Mrc: 0.8076
+		 Sph: 0.1410
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 6):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.3253
+	accuracy: 0.6540
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0005
+		 Gl: 0.0013
+		 Brt: 0.0003
+		 Py/Mrc: 0.0024
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0008
+	IoU (prediction) per class:
+		 BG: 0.6233
+		 Ccp: 0.0005
+		 Gl: 0.1877
+		 Brt: 0.0000
+		 Py/Mrc: 0.2385
+		 Sph: 0.8342
+		 Tnt/Ttr: 0.3932
+
+Evaluation result (test, image 7):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3347
+	accuracy: 0.7257
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0008
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.7452
+		 Ccp: 0.2605
+		 Gl: 0.0002
+		 Brt: 0.0000
+		 Py/Mrc: 0.7229
+		 Sph: 0.5984
+		 Tnt/Ttr: 0.0157
+
+Evaluation result (test, image 8):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.1592
+	accuracy: 0.3828
+	IoU (activated) per class:
+		 BG: 0.0005
+		 Ccp: 0.0004
+		 Gl: 0.0026
+		 Brt: 0.0003
+		 Py/Mrc: 0.0023
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.3182
+		 Ccp: 0.0007
+		 Gl: 0.1557
+		 Brt: 0.0000
+		 Py/Mrc: 0.4538
+		 Sph: 0.1861
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 9):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.6965
+	IoU (activated) per class:
+		 BG: 0.0012
+		 Ccp: 0.0007
+		 Gl: 0.0009
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7839
+		 Ccp: 0.5346
+		 Gl: 0.0297
+		 Brt: 0.0000
+		 Py/Mrc: 0.6616
+		 Sph: 0.5045
+		 Tnt/Ttr: 0.0013
+
+Evaluation result (test, image 10):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.3407
+	accuracy: 0.7227
+	IoU (activated) per class:
+		 BG: 0.0014
+		 Ccp: 0.0006
+		 Gl: 0.0011
+		 Brt: 0.0008
+		 Py/Mrc: 0.0007
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7381
+		 Ccp: 0.0087
+		 Gl: 0.0507
+		 Brt: 0.3466
+		 Py/Mrc: 0.6827
+		 Sph: 0.5584
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 11):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3184
+	accuracy: 0.7517
+	IoU (activated) per class:
+		 BG: 0.0019
+		 Ccp: 0.0010
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6588
+		 Ccp: 0.0746
+		 Gl: 0.0081
+		 Brt: 0.0000
+		 Py/Mrc: 0.8278
+		 Sph: 0.6593
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 12):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.2671
+	accuracy: 0.6023
+	IoU (activated) per class:
+		 BG: 0.0007
+		 Ccp: 0.0003
+		 Gl: 0.0003
+		 Brt: 0.0007
+		 Py/Mrc: 0.0014
+		 Sph: 0.0020
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.5678
+		 Ccp: 0.0000
+		 Gl: 0.0000
+		 Brt: 0.3688
+		 Py/Mrc: 0.6943
+		 Sph: 0.2389
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 13):
+	mean IoU (activated): 0.0012
+	mean IoU (prediction): 0.3861
+	accuracy: 0.6620
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0010
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0013
+		 Tnt/Ttr: 0.0007
+	IoU (prediction) per class:
+		 BG: 0.5921
+		 Ccp: 0.3059
+		 Gl: 0.1500
+		 Brt: 0.0000
+		 Py/Mrc: 0.8209
+		 Sph: 0.5195
+		 Tnt/Ttr: 0.3141
+
+Evaluation result (test, image 14):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.2942
+	accuracy: 0.7010
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0007
+		 Brt: 0.0003
+		 Py/Mrc: 0.0008
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8273
+		 Ccp: 0.1915
+		 Gl: 0.0447
+		 Brt: 0.0000
+		 Py/Mrc: 0.7028
+		 Sph: 0.2918
+		 Tnt/Ttr: 0.0014
+
+Evaluation result (test, image 15):
+	mean IoU (activated): 0.0006
+	mean IoU (prediction): 0.2793
+	accuracy: 0.5527
+	IoU (activated) per class:
+		 BG: 0.0016
+		 Ccp: 0.0005
+		 Gl: 0.0003
+		 Brt: 0.0006
+		 Py/Mrc: 0.0003
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.8057
+		 Ccp: 0.2260
+		 Gl: 0.0000
+		 Brt: 0.2479
+		 Py/Mrc: 0.0000
+		 Sph: 0.6752
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 16):
+	mean IoU (activated): 0.0005
+	mean IoU (prediction): 0.1871
+	accuracy: 0.5277
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0007
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0006
+		 Sph: 0.0003
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6212
+		 Ccp: 0.0048
+		 Gl: 0.0089
+		 Brt: 0.0000
+		 Py/Mrc: 0.5558
+		 Sph: 0.1186
+		 Tnt/Ttr: 0.0003
+
+Evaluation result (test, image 1):
+	mean IoU (activated): 0.0013
+	mean IoU (prediction): 0.2763
+	accuracy: 0.6755
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0012
+		 Gl: 0.0003
+		 Brt: 0.0003
+		 Py/Mrc: 0.0051
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0009
+	IoU (prediction) per class:
+		 BG: 0.7167
+		 Ccp: 0.0008
+		 Gl: 0.0000
+		 Brt: 0.0000
+		 Py/Mrc: 0.1532
+		 Sph: 0.6988
+		 Tnt/Ttr: 0.3644
+
+Evaluation result (test, image 2):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3592
+	accuracy: 0.7544
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0009
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8147
+		 Ccp: 0.2967
+		 Gl: 0.0467
+		 Brt: 0.0000
+		 Py/Mrc: 0.7764
+		 Sph: 0.5680
+		 Tnt/Ttr: 0.0119
+
+Evaluation result (test, image 3):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3372
+	accuracy: 0.7237
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0009
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8153
+		 Ccp: 0.2775
+		 Gl: 0.0077
+		 Brt: 0.0000
+		 Py/Mrc: 0.7728
+		 Sph: 0.4846
+		 Tnt/Ttr: 0.0028
+
+Evaluation result (test, image 4):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.7636
+	IoU (activated) per class:
+		 BG: 0.0009
+		 Ccp: 0.0008
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0011
+		 Sph: 0.0012
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8021
+		 Ccp: 0.2749
+		 Gl: 0.0236
+		 Brt: 0.0000
+		 Py/Mrc: 0.7734
+		 Sph: 0.6341
+		 Tnt/Ttr: 0.0079
+
+Evaluation result (test, image 5):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.2228
+	accuracy: 0.5376
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0007
+		 Sph: 0.0004
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.4509
+		 Ccp: 0.1224
+		 Gl: 0.0378
+		 Brt: 0.0000
+		 Py/Mrc: 0.8076
+		 Sph: 0.1410
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 6):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.3253
+	accuracy: 0.6540
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0005
+		 Gl: 0.0013
+		 Brt: 0.0003
+		 Py/Mrc: 0.0024
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0008
+	IoU (prediction) per class:
+		 BG: 0.6233
+		 Ccp: 0.0005
+		 Gl: 0.1877
+		 Brt: 0.0000
+		 Py/Mrc: 0.2385
+		 Sph: 0.8342
+		 Tnt/Ttr: 0.3932
+
+Evaluation result (test, image 7):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3347
+	accuracy: 0.7257
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0008
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.7452
+		 Ccp: 0.2605
+		 Gl: 0.0002
+		 Brt: 0.0000
+		 Py/Mrc: 0.7229
+		 Sph: 0.5984
+		 Tnt/Ttr: 0.0157
+
+Evaluation result (test, image 8):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.1592
+	accuracy: 0.3828
+	IoU (activated) per class:
+		 BG: 0.0005
+		 Ccp: 0.0004
+		 Gl: 0.0026
+		 Brt: 0.0003
+		 Py/Mrc: 0.0023
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.3182
+		 Ccp: 0.0007
+		 Gl: 0.1557
+		 Brt: 0.0000
+		 Py/Mrc: 0.4538
+		 Sph: 0.1861
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 9):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.6965
+	IoU (activated) per class:
+		 BG: 0.0012
+		 Ccp: 0.0007
+		 Gl: 0.0009
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7839
+		 Ccp: 0.5346
+		 Gl: 0.0297
+		 Brt: 0.0000
+		 Py/Mrc: 0.6616
+		 Sph: 0.5045
+		 Tnt/Ttr: 0.0013
+
+Evaluation result (test, image 10):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.3407
+	accuracy: 0.7227
+	IoU (activated) per class:
+		 BG: 0.0014
+		 Ccp: 0.0006
+		 Gl: 0.0011
+		 Brt: 0.0008
+		 Py/Mrc: 0.0007
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7381
+		 Ccp: 0.0087
+		 Gl: 0.0507
+		 Brt: 0.3466
+		 Py/Mrc: 0.6827
+		 Sph: 0.5584
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 11):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3184
+	accuracy: 0.7517
+	IoU (activated) per class:
+		 BG: 0.0019
+		 Ccp: 0.0010
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6588
+		 Ccp: 0.0746
+		 Gl: 0.0081
+		 Brt: 0.0000
+		 Py/Mrc: 0.8278
+		 Sph: 0.6593
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 12):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.2671
+	accuracy: 0.6023
+	IoU (activated) per class:
+		 BG: 0.0007
+		 Ccp: 0.0003
+		 Gl: 0.0003
+		 Brt: 0.0007
+		 Py/Mrc: 0.0014
+		 Sph: 0.0020
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.5678
+		 Ccp: 0.0000
+		 Gl: 0.0000
+		 Brt: 0.3688
+		 Py/Mrc: 0.6943
+		 Sph: 0.2389
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 13):
+	mean IoU (activated): 0.0012
+	mean IoU (prediction): 0.3861
+	accuracy: 0.6620
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0010
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0013
+		 Tnt/Ttr: 0.0007
+	IoU (prediction) per class:
+		 BG: 0.5921
+		 Ccp: 0.3059
+		 Gl: 0.1500
+		 Brt: 0.0000
+		 Py/Mrc: 0.8209
+		 Sph: 0.5195
+		 Tnt/Ttr: 0.3141
+
+Evaluation result (test, image 14):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.2942
+	accuracy: 0.7010
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0007
+		 Brt: 0.0003
+		 Py/Mrc: 0.0008
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8273
+		 Ccp: 0.1915
+		 Gl: 0.0447
+		 Brt: 0.0000
+		 Py/Mrc: 0.7028
+		 Sph: 0.2918
+		 Tnt/Ttr: 0.0014
+
+Evaluation result (test, image 15):
+	mean IoU (activated): 0.0006
+	mean IoU (prediction): 0.2793
+	accuracy: 0.5527
+	IoU (activated) per class:
+		 BG: 0.0016
+		 Ccp: 0.0005
+		 Gl: 0.0003
+		 Brt: 0.0006
+		 Py/Mrc: 0.0003
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.8057
+		 Ccp: 0.2260
+		 Gl: 0.0000
+		 Brt: 0.2479
+		 Py/Mrc: 0.0000
+		 Sph: 0.6752
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 16):
+	mean IoU (activated): 0.0005
+	mean IoU (prediction): 0.1871
+	accuracy: 0.5277
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0007
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0006
+		 Sph: 0.0003
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6212
+		 Ccp: 0.0048
+		 Gl: 0.0089
+		 Brt: 0.0000
+		 Py/Mrc: 0.5558
+		 Sph: 0.1186
+		 Tnt/Ttr: 0.0003
+
+Evaluation result (test, image 1):
+	mean IoU (activated): 0.0013
+	mean IoU (prediction): 0.2763
+	accuracy: 0.6755
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0012
+		 Gl: 0.0003
+		 Brt: 0.0003
+		 Py/Mrc: 0.0051
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0009
+	IoU (prediction) per class:
+		 BG: 0.7167
+		 Ccp: 0.0008
+		 Gl: 0.0000
+		 Brt: 0.0000
+		 Py/Mrc: 0.1532
+		 Sph: 0.6988
+		 Tnt/Ttr: 0.3644
+
+Evaluation result (test, image 2):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3592
+	accuracy: 0.7544
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0009
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8147
+		 Ccp: 0.2967
+		 Gl: 0.0467
+		 Brt: 0.0000
+		 Py/Mrc: 0.7764
+		 Sph: 0.5680
+		 Tnt/Ttr: 0.0119
+
+Evaluation result (test, image 3):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3372
+	accuracy: 0.7237
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0009
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8153
+		 Ccp: 0.2775
+		 Gl: 0.0077
+		 Brt: 0.0000
+		 Py/Mrc: 0.7728
+		 Sph: 0.4846
+		 Tnt/Ttr: 0.0028
+
+Evaluation result (test, image 4):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.7636
+	IoU (activated) per class:
+		 BG: 0.0009
+		 Ccp: 0.0008
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0011
+		 Sph: 0.0012
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8021
+		 Ccp: 0.2749
+		 Gl: 0.0236
+		 Brt: 0.0000
+		 Py/Mrc: 0.7734
+		 Sph: 0.6341
+		 Tnt/Ttr: 0.0079
+
+Evaluation result (test, image 5):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.2228
+	accuracy: 0.5376
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0007
+		 Sph: 0.0004
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.4509
+		 Ccp: 0.1224
+		 Gl: 0.0378
+		 Brt: 0.0000
+		 Py/Mrc: 0.8076
+		 Sph: 0.1410
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 6):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.3253
+	accuracy: 0.6540
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0005
+		 Gl: 0.0013
+		 Brt: 0.0003
+		 Py/Mrc: 0.0024
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0008
+	IoU (prediction) per class:
+		 BG: 0.6233
+		 Ccp: 0.0005
+		 Gl: 0.1877
+		 Brt: 0.0000
+		 Py/Mrc: 0.2385
+		 Sph: 0.8342
+		 Tnt/Ttr: 0.3932
+
+Evaluation result (test, image 7):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3347
+	accuracy: 0.7257
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0008
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.7452
+		 Ccp: 0.2605
+		 Gl: 0.0002
+		 Brt: 0.0000
+		 Py/Mrc: 0.7229
+		 Sph: 0.5984
+		 Tnt/Ttr: 0.0157
+
+Evaluation result (test, image 8):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.1592
+	accuracy: 0.3828
+	IoU (activated) per class:
+		 BG: 0.0005
+		 Ccp: 0.0004
+		 Gl: 0.0026
+		 Brt: 0.0003
+		 Py/Mrc: 0.0023
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.3182
+		 Ccp: 0.0007
+		 Gl: 0.1557
+		 Brt: 0.0000
+		 Py/Mrc: 0.4538
+		 Sph: 0.1861
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 9):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.6965
+	IoU (activated) per class:
+		 BG: 0.0012
+		 Ccp: 0.0007
+		 Gl: 0.0009
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7839
+		 Ccp: 0.5346
+		 Gl: 0.0297
+		 Brt: 0.0000
+		 Py/Mrc: 0.6616
+		 Sph: 0.5045
+		 Tnt/Ttr: 0.0013
+
+Evaluation result (test, image 10):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.3407
+	accuracy: 0.7227
+	IoU (activated) per class:
+		 BG: 0.0014
+		 Ccp: 0.0006
+		 Gl: 0.0011
+		 Brt: 0.0008
+		 Py/Mrc: 0.0007
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7381
+		 Ccp: 0.0087
+		 Gl: 0.0507
+		 Brt: 0.3466
+		 Py/Mrc: 0.6827
+		 Sph: 0.5584
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 11):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3184
+	accuracy: 0.7517
+	IoU (activated) per class:
+		 BG: 0.0019
+		 Ccp: 0.0010
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6588
+		 Ccp: 0.0746
+		 Gl: 0.0081
+		 Brt: 0.0000
+		 Py/Mrc: 0.8278
+		 Sph: 0.6593
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 12):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.2671
+	accuracy: 0.6023
+	IoU (activated) per class:
+		 BG: 0.0007
+		 Ccp: 0.0003
+		 Gl: 0.0003
+		 Brt: 0.0007
+		 Py/Mrc: 0.0014
+		 Sph: 0.0020
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.5678
+		 Ccp: 0.0000
+		 Gl: 0.0000
+		 Brt: 0.3688
+		 Py/Mrc: 0.6943
+		 Sph: 0.2389
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 13):
+	mean IoU (activated): 0.0012
+	mean IoU (prediction): 0.3861
+	accuracy: 0.6620
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0010
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0013
+		 Tnt/Ttr: 0.0007
+	IoU (prediction) per class:
+		 BG: 0.5921
+		 Ccp: 0.3059
+		 Gl: 0.1500
+		 Brt: 0.0000
+		 Py/Mrc: 0.8209
+		 Sph: 0.5195
+		 Tnt/Ttr: 0.3141
+
+Evaluation result (test, image 14):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.2942
+	accuracy: 0.7010
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0007
+		 Brt: 0.0003
+		 Py/Mrc: 0.0008
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8273
+		 Ccp: 0.1915
+		 Gl: 0.0447
+		 Brt: 0.0000
+		 Py/Mrc: 0.7028
+		 Sph: 0.2918
+		 Tnt/Ttr: 0.0014
+
+Evaluation result (test, image 15):
+	mean IoU (activated): 0.0006
+	mean IoU (prediction): 0.2793
+	accuracy: 0.5527
+	IoU (activated) per class:
+		 BG: 0.0016
+		 Ccp: 0.0005
+		 Gl: 0.0003
+		 Brt: 0.0006
+		 Py/Mrc: 0.0003
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.8057
+		 Ccp: 0.2260
+		 Gl: 0.0000
+		 Brt: 0.2479
+		 Py/Mrc: 0.0000
+		 Sph: 0.6752
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 16):
+	mean IoU (activated): 0.0005
+	mean IoU (prediction): 0.1871
+	accuracy: 0.5277
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0007
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0006
+		 Sph: 0.0003
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6212
+		 Ccp: 0.0048
+		 Gl: 0.0089
+		 Brt: 0.0000
+		 Py/Mrc: 0.5558
+		 Sph: 0.1186
+		 Tnt/Ttr: 0.0003
+
+Evaluation result (test, image 1):
+	mean IoU (activated): 0.0013
+	mean IoU (prediction): 0.2763
+	accuracy: 0.6755
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0012
+		 Gl: 0.0003
+		 Brt: 0.0003
+		 Py/Mrc: 0.0051
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0009
+	IoU (prediction) per class:
+		 BG: 0.7167
+		 Ccp: 0.0008
+		 Gl: 0.0000
+		 Brt: 0.0000
+		 Py/Mrc: 0.1532
+		 Sph: 0.6988
+		 Tnt/Ttr: 0.3644
+
+Evaluation result (test, image 2):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3592
+	accuracy: 0.7544
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0009
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8147
+		 Ccp: 0.2967
+		 Gl: 0.0467
+		 Brt: 0.0000
+		 Py/Mrc: 0.7764
+		 Sph: 0.5680
+		 Tnt/Ttr: 0.0119
+
+Evaluation result (test, image 3):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3372
+	accuracy: 0.7237
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0009
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8153
+		 Ccp: 0.2775
+		 Gl: 0.0077
+		 Brt: 0.0000
+		 Py/Mrc: 0.7728
+		 Sph: 0.4846
+		 Tnt/Ttr: 0.0028
+
+Evaluation result (test, image 4):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.7636
+	IoU (activated) per class:
+		 BG: 0.0009
+		 Ccp: 0.0008
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0011
+		 Sph: 0.0012
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8021
+		 Ccp: 0.2749
+		 Gl: 0.0236
+		 Brt: 0.0000
+		 Py/Mrc: 0.7734
+		 Sph: 0.6341
+		 Tnt/Ttr: 0.0079
+
+Evaluation result (test, image 5):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.2228
+	accuracy: 0.5376
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0007
+		 Sph: 0.0004
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.4509
+		 Ccp: 0.1224
+		 Gl: 0.0378
+		 Brt: 0.0000
+		 Py/Mrc: 0.8076
+		 Sph: 0.1410
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 6):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.3253
+	accuracy: 0.6540
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0005
+		 Gl: 0.0013
+		 Brt: 0.0003
+		 Py/Mrc: 0.0024
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0008
+	IoU (prediction) per class:
+		 BG: 0.6233
+		 Ccp: 0.0005
+		 Gl: 0.1877
+		 Brt: 0.0000
+		 Py/Mrc: 0.2385
+		 Sph: 0.8342
+		 Tnt/Ttr: 0.3932
+
+Evaluation result (test, image 7):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3347
+	accuracy: 0.7257
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0008
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.7452
+		 Ccp: 0.2605
+		 Gl: 0.0002
+		 Brt: 0.0000
+		 Py/Mrc: 0.7229
+		 Sph: 0.5984
+		 Tnt/Ttr: 0.0157
+
+Evaluation result (test, image 8):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.1592
+	accuracy: 0.3828
+	IoU (activated) per class:
+		 BG: 0.0005
+		 Ccp: 0.0004
+		 Gl: 0.0026
+		 Brt: 0.0003
+		 Py/Mrc: 0.0023
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.3182
+		 Ccp: 0.0007
+		 Gl: 0.1557
+		 Brt: 0.0000
+		 Py/Mrc: 0.4538
+		 Sph: 0.1861
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 9):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.6965
+	IoU (activated) per class:
+		 BG: 0.0012
+		 Ccp: 0.0007
+		 Gl: 0.0009
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7839
+		 Ccp: 0.5346
+		 Gl: 0.0297
+		 Brt: 0.0000
+		 Py/Mrc: 0.6616
+		 Sph: 0.5045
+		 Tnt/Ttr: 0.0013
+
+Evaluation result (test, image 10):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.3407
+	accuracy: 0.7227
+	IoU (activated) per class:
+		 BG: 0.0014
+		 Ccp: 0.0006
+		 Gl: 0.0011
+		 Brt: 0.0008
+		 Py/Mrc: 0.0007
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7381
+		 Ccp: 0.0087
+		 Gl: 0.0507
+		 Brt: 0.3466
+		 Py/Mrc: 0.6827
+		 Sph: 0.5584
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 11):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3184
+	accuracy: 0.7517
+	IoU (activated) per class:
+		 BG: 0.0019
+		 Ccp: 0.0010
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6588
+		 Ccp: 0.0746
+		 Gl: 0.0081
+		 Brt: 0.0000
+		 Py/Mrc: 0.8278
+		 Sph: 0.6593
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 12):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.2671
+	accuracy: 0.6023
+	IoU (activated) per class:
+		 BG: 0.0007
+		 Ccp: 0.0003
+		 Gl: 0.0003
+		 Brt: 0.0007
+		 Py/Mrc: 0.0014
+		 Sph: 0.0020
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.5678
+		 Ccp: 0.0000
+		 Gl: 0.0000
+		 Brt: 0.3688
+		 Py/Mrc: 0.6943
+		 Sph: 0.2389
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 13):
+	mean IoU (activated): 0.0012
+	mean IoU (prediction): 0.3861
+	accuracy: 0.6620
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0010
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0013
+		 Tnt/Ttr: 0.0007
+	IoU (prediction) per class:
+		 BG: 0.5921
+		 Ccp: 0.3059
+		 Gl: 0.1500
+		 Brt: 0.0000
+		 Py/Mrc: 0.8209
+		 Sph: 0.5195
+		 Tnt/Ttr: 0.3141
+
+Evaluation result (test, image 14):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.2942
+	accuracy: 0.7010
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0007
+		 Brt: 0.0003
+		 Py/Mrc: 0.0008
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8273
+		 Ccp: 0.1915
+		 Gl: 0.0447
+		 Brt: 0.0000
+		 Py/Mrc: 0.7028
+		 Sph: 0.2918
+		 Tnt/Ttr: 0.0014
+
+Evaluation result (test, image 15):
+	mean IoU (activated): 0.0006
+	mean IoU (prediction): 0.2793
+	accuracy: 0.5527
+	IoU (activated) per class:
+		 BG: 0.0016
+		 Ccp: 0.0005
+		 Gl: 0.0003
+		 Brt: 0.0006
+		 Py/Mrc: 0.0003
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.8057
+		 Ccp: 0.2260
+		 Gl: 0.0000
+		 Brt: 0.2479
+		 Py/Mrc: 0.0000
+		 Sph: 0.6752
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 16):
+	mean IoU (activated): 0.0005
+	mean IoU (prediction): 0.1871
+	accuracy: 0.5277
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0007
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0006
+		 Sph: 0.0003
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6212
+		 Ccp: 0.0048
+		 Gl: 0.0089
+		 Brt: 0.0000
+		 Py/Mrc: 0.5558
+		 Sph: 0.1186
+		 Tnt/Ttr: 0.0003
+
+Evaluation result (test, image 1):
+	mean IoU (activated): 0.0013
+	mean IoU (prediction): 0.2763
+	accuracy: 0.6755
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0012
+		 Gl: 0.0003
+		 Brt: 0.0003
+		 Py/Mrc: 0.0051
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0009
+	IoU (prediction) per class:
+		 BG: 0.7167
+		 Ccp: 0.0008
+		 Gl: 0.0000
+		 Brt: 0.0000
+		 Py/Mrc: 0.1532
+		 Sph: 0.6988
+		 Tnt/Ttr: 0.3644
+
+Evaluation result (test, image 2):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3592
+	accuracy: 0.7544
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0009
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8147
+		 Ccp: 0.2967
+		 Gl: 0.0467
+		 Brt: 0.0000
+		 Py/Mrc: 0.7764
+		 Sph: 0.5680
+		 Tnt/Ttr: 0.0119
+
+Evaluation result (test, image 3):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3372
+	accuracy: 0.7237
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0009
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8153
+		 Ccp: 0.2775
+		 Gl: 0.0077
+		 Brt: 0.0000
+		 Py/Mrc: 0.7728
+		 Sph: 0.4846
+		 Tnt/Ttr: 0.0028
+
+Evaluation result (test, image 4):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.7636
+	IoU (activated) per class:
+		 BG: 0.0009
+		 Ccp: 0.0008
+		 Gl: 0.0008
+		 Brt: 0.0003
+		 Py/Mrc: 0.0011
+		 Sph: 0.0012
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8021
+		 Ccp: 0.2749
+		 Gl: 0.0236
+		 Brt: 0.0000
+		 Py/Mrc: 0.7734
+		 Sph: 0.6341
+		 Tnt/Ttr: 0.0079
+
+Evaluation result (test, image 5):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.2228
+	accuracy: 0.5376
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0005
+		 Brt: 0.0003
+		 Py/Mrc: 0.0007
+		 Sph: 0.0004
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.4509
+		 Ccp: 0.1224
+		 Gl: 0.0378
+		 Brt: 0.0000
+		 Py/Mrc: 0.8076
+		 Sph: 0.1410
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 6):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.3253
+	accuracy: 0.6540
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0005
+		 Gl: 0.0013
+		 Brt: 0.0003
+		 Py/Mrc: 0.0024
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0008
+	IoU (prediction) per class:
+		 BG: 0.6233
+		 Ccp: 0.0005
+		 Gl: 0.1877
+		 Brt: 0.0000
+		 Py/Mrc: 0.2385
+		 Sph: 0.8342
+		 Tnt/Ttr: 0.3932
+
+Evaluation result (test, image 7):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.3347
+	accuracy: 0.7257
+	IoU (activated) per class:
+		 BG: 0.0008
+		 Ccp: 0.0008
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0010
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.7452
+		 Ccp: 0.2605
+		 Gl: 0.0002
+		 Brt: 0.0000
+		 Py/Mrc: 0.7229
+		 Sph: 0.5984
+		 Tnt/Ttr: 0.0157
+
+Evaluation result (test, image 8):
+	mean IoU (activated): 0.0011
+	mean IoU (prediction): 0.1592
+	accuracy: 0.3828
+	IoU (activated) per class:
+		 BG: 0.0005
+		 Ccp: 0.0004
+		 Gl: 0.0026
+		 Brt: 0.0003
+		 Py/Mrc: 0.0023
+		 Sph: 0.0010
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.3182
+		 Ccp: 0.0007
+		 Gl: 0.1557
+		 Brt: 0.0000
+		 Py/Mrc: 0.4538
+		 Sph: 0.1861
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 9):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3594
+	accuracy: 0.6965
+	IoU (activated) per class:
+		 BG: 0.0012
+		 Ccp: 0.0007
+		 Gl: 0.0009
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0011
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7839
+		 Ccp: 0.5346
+		 Gl: 0.0297
+		 Brt: 0.0000
+		 Py/Mrc: 0.6616
+		 Sph: 0.5045
+		 Tnt/Ttr: 0.0013
+
+Evaluation result (test, image 10):
+	mean IoU (activated): 0.0009
+	mean IoU (prediction): 0.3407
+	accuracy: 0.7227
+	IoU (activated) per class:
+		 BG: 0.0014
+		 Ccp: 0.0006
+		 Gl: 0.0011
+		 Brt: 0.0008
+		 Py/Mrc: 0.0007
+		 Sph: 0.0015
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.7381
+		 Ccp: 0.0087
+		 Gl: 0.0507
+		 Brt: 0.3466
+		 Py/Mrc: 0.6827
+		 Sph: 0.5584
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 11):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.3184
+	accuracy: 0.7517
+	IoU (activated) per class:
+		 BG: 0.0019
+		 Ccp: 0.0010
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6588
+		 Ccp: 0.0746
+		 Gl: 0.0081
+		 Brt: 0.0000
+		 Py/Mrc: 0.8278
+		 Sph: 0.6593
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 12):
+	mean IoU (activated): 0.0008
+	mean IoU (prediction): 0.2671
+	accuracy: 0.6023
+	IoU (activated) per class:
+		 BG: 0.0007
+		 Ccp: 0.0003
+		 Gl: 0.0003
+		 Brt: 0.0007
+		 Py/Mrc: 0.0014
+		 Sph: 0.0020
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.5678
+		 Ccp: 0.0000
+		 Gl: 0.0000
+		 Brt: 0.3688
+		 Py/Mrc: 0.6943
+		 Sph: 0.2389
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 13):
+	mean IoU (activated): 0.0012
+	mean IoU (prediction): 0.3861
+	accuracy: 0.6620
+	IoU (activated) per class:
+		 BG: 0.0031
+		 Ccp: 0.0009
+		 Gl: 0.0010
+		 Brt: 0.0003
+		 Py/Mrc: 0.0009
+		 Sph: 0.0013
+		 Tnt/Ttr: 0.0007
+	IoU (prediction) per class:
+		 BG: 0.5921
+		 Ccp: 0.3059
+		 Gl: 0.1500
+		 Brt: 0.0000
+		 Py/Mrc: 0.8209
+		 Sph: 0.5195
+		 Tnt/Ttr: 0.3141
+
+Evaluation result (test, image 14):
+	mean IoU (activated): 0.0007
+	mean IoU (prediction): 0.2942
+	accuracy: 0.7010
+	IoU (activated) per class:
+		 BG: 0.0011
+		 Ccp: 0.0008
+		 Gl: 0.0007
+		 Brt: 0.0003
+		 Py/Mrc: 0.0008
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0004
+	IoU (prediction) per class:
+		 BG: 0.8273
+		 Ccp: 0.1915
+		 Gl: 0.0447
+		 Brt: 0.0000
+		 Py/Mrc: 0.7028
+		 Sph: 0.2918
+		 Tnt/Ttr: 0.0014
+
+Evaluation result (test, image 15):
+	mean IoU (activated): 0.0006
+	mean IoU (prediction): 0.2793
+	accuracy: 0.5527
+	IoU (activated) per class:
+		 BG: 0.0016
+		 Ccp: 0.0005
+		 Gl: 0.0003
+		 Brt: 0.0006
+		 Py/Mrc: 0.0003
+		 Sph: 0.0008
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.8057
+		 Ccp: 0.2260
+		 Gl: 0.0000
+		 Brt: 0.2479
+		 Py/Mrc: 0.0000
+		 Sph: 0.6752
+		 Tnt/Ttr: 0.0000
+
+Evaluation result (test, image 16):
+	mean IoU (activated): 0.0005
+	mean IoU (prediction): 0.1871
+	accuracy: 0.5277
+	IoU (activated) per class:
+		 BG: 0.0010
+		 Ccp: 0.0007
+		 Gl: 0.0004
+		 Brt: 0.0003
+		 Py/Mrc: 0.0006
+		 Sph: 0.0003
+		 Tnt/Ttr: 0.0003
+	IoU (prediction) per class:
+		 BG: 0.6212
+		 Ccp: 0.0048
+		 Gl: 0.0089
+		 Brt: 0.0000
+		 Py/Mrc: 0.5558
+		 Sph: 0.1186
+		 Tnt/Ttr: 0.0003
+
